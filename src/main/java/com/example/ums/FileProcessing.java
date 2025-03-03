@@ -23,6 +23,12 @@ class Faculty {
         this.coursesOffered = coursesOffered;
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Faculty[ID=%s, Name=%s, Degree=%s, Research=%s, Email=%s, Office=%s, Courses=%s]",
+                id, name, degree, researchInterest, email, officeLocation, coursesOffered);
+    }
 }
 
 class Student {
@@ -53,6 +59,12 @@ class Student {
         this.progress = progress;
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Student[ID=%s, Name=%s, Address=%s, Phone=%s, Email=%s, Level=%s, Semester=%s, Subjects=%s, Thesis=%s, Progress=%s]",
+                id, name, address, telephone, email, academicLevel, currentSemester, subjectsRegistered, thesisTitle, progress);
+    }
 }
 
 class Subject {
@@ -62,6 +74,11 @@ class Subject {
     public Subject(String code, String name) {
         this.code = code;
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Subject[Code=%s, Name=%s]", code, name);
     }
 }
 
@@ -87,6 +104,12 @@ class Course {
         this.location = location;
         this.teacherName = teacherName;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Course[Code=%s, Name=%s, Subject=%s, Section=%s, Capacity=%s, Time=%s, Exam=%s, Location=%s, Teacher=%s]",
+                code, name, subjectCode, sectionNumber, capacity, lectureTime, finalExamDateTime, location, teacherName);
+    }
 }
 
 class Event {
@@ -111,12 +134,18 @@ class Event {
         this.headerImage = headerImage;
         this.registeredStudents = registeredStudents;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Event[Code=%s, Name=%s, Description=%s, Location=%s, DateTime=%s, Capacity=%s, Cost=%s, Students=%s]",
+                code, name, description, location, dateTime, capacity, cost, registeredStudents);
+    }
 }
 
 class processFile {
     public static List<Faculty> parseFaculties(String filePath) throws IOException {
         List<Faculty> faculties = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(new File(filePath).getAbsolutePath()))) {
             String line;
             br.readLine(); // Skip header
             while ((line = br.readLine()) != null) {
@@ -131,7 +160,7 @@ class processFile {
 
     public static List<Student> parseStudents(String filePath) throws IOException {
         List<Student> students = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(new File(filePath).getAbsolutePath()))) {
             String line;
             br.readLine(); // Skip header
             while ((line = br.readLine()) != null) {
@@ -146,7 +175,7 @@ class processFile {
 
     public static List<Subject> parseSubjects(String filePath) throws IOException {
         List<Subject> subjects = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(new File(filePath).getAbsolutePath()))) {
             String line;
             br.readLine(); // Skip header
             while ((line = br.readLine()) != null) {
@@ -161,7 +190,7 @@ class processFile {
 
     public static List<Course> parseCourses(String filePath) throws IOException {
         List<Course> courses = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(new File(filePath).getAbsolutePath()))) {
             String line;
             br.readLine(); // Skip header
             while ((line = br.readLine()) != null) {
@@ -176,7 +205,7 @@ class processFile {
 
     public static List<Event> parseEvents(String filePath) throws IOException {
         List<Event> events = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(new File(filePath).getAbsolutePath()))) {
             String line;
             br.readLine(); // Skip header
             while ((line = br.readLine()) != null) {
@@ -193,18 +222,18 @@ class processFile {
 public class FileProcessing {
     public static void main(String[] args) {
         try {
-            List<Faculty> faculties = processFile.parseFaculties("faculty.csv");
-            List<Student> students = processFile.parseStudents("students.csv");
-            List<Course> courses = processFile.parseCourses("faculty.csv");
-            List<Event> events = processFile.parseEvents("students.csv");
-            List<Subject> subjects = processFile.parseSubjects("faculty.csv");
+            List<Faculty> faculties = processFile.parseFaculties("src\\main\\resources\\Faculties.csv");
+            List<Student> students = processFile.parseStudents("src\\main\\resources\\Students.csv");
+            List<Course> courses = processFile.parseCourses("src\\main\\resources\\Courses.csv");
+            List<Event> events = processFile.parseEvents("src\\main\\resources\\Events.csv");
+            List<Subject> subjects = processFile.parseSubjects("src\\main\\resources\\Subjects.csv");
 
             // Print parsed data
-            faculties.forEach(System.out::println);
-            students.forEach(System.out::println);
-            courses.forEach(System.out::println);
-            events.forEach(System.out::println);
-            subjects.forEach(System.out::println);
+            faculties.forEach(faculty -> System.out.println(faculty.toString()));
+            students.forEach(student -> System.out.println(student.toString()));
+            courses.forEach(course -> System.out.println(course.toString()));
+            events.forEach(event -> System.out.println(event.toString()));
+            subjects.forEach(subject -> System.out.println(subject.toString()));
             System.out.println("Done");
 
         } catch (IOException e) {
