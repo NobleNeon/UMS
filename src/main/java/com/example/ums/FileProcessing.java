@@ -205,6 +205,7 @@ public class FileProcessing {
             courses.forEach(System.out::println);
             events.forEach(System.out::println);
             subjects.forEach(System.out::println);
+            System.out.println("Done");
 
         } catch (IOException e) {
             e.printStackTrace();
