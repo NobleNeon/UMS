@@ -1,17 +1,12 @@
 package com.example.ums;
 
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.*;
 import java.util.*;
 
 class Faculty {
-    String id;
-    String name;
-    String degree;
-    String researchInterest;
-    String email;
-    String officeLocation;
-    String coursesOffered;
-    String password;
+    String id, name, degree, researchInterest, email, officeLocation, coursesOffered, password;
 
     public Faculty(String id, String name, String degree, String researchInterest, String email, String officeLocation, String coursesOffered, String password) {
         this.id = id;
@@ -26,50 +21,78 @@ class Faculty {
 
     @Override
     public String toString() {
-        return String.format("Faculty[ID=%s, Name=%s, Degree=%s, Research=%s, Email=%s, Office=%s, Courses=%s]",
-                id, name, degree, researchInterest, email, officeLocation, coursesOffered);
+        return String.format("Faculty[ID=%s, Name=%s, Degree=%s, Research=%s, Email=%s, Office=%s, Courses=%s]", id, name, degree, researchInterest, email, officeLocation, coursesOffered);
     }
 }
 
 class Student {
-    String id;
-    String name;
-    String address;
-    String telephone;
-    String email;
-    String academicLevel;
-    String currentSemester;
-    String profilePhoto;
-    String subjectsRegistered;
-    String thesisTitle;
-    String progress;
-    String password;
+    String id, name, dob, email, phone, address, department, course, year, semester, gpa, password;
 
-    public Student(String id, String name, String address, String telephone, String email, String academicLevel, String currentSemester, String profilePhoto, String subjectsRegistered, String thesisTitle, String progress, String password) {
+    public Student(String id, String name, String dob, String email, String phone, String address, String department, String course, String year, String semester, String gpa, String password) {
         this.id = id;
         this.name = name;
-        this.address = address;
-        this.telephone = telephone;
+        this.dob = dob;
         this.email = email;
-        this.academicLevel = academicLevel;
-        this.currentSemester = currentSemester;
-        this.profilePhoto = profilePhoto;
-        this.subjectsRegistered = subjectsRegistered;
-        this.thesisTitle = thesisTitle;
-        this.progress = progress;
+        this.phone = phone;
+        this.address = address;
+        this.department = department;
+        this.course = course;
+        this.year = year;
+        this.semester = semester;
+        this.gpa = gpa;
         this.password = password;
     }
 
     @Override
     public String toString() {
-        return String.format("Student[ID=%s, Name=%s, Address=%s, Phone=%s, Email=%s, Level=%s, Semester=%s, Subjects=%s, Thesis=%s, Progress=%s]",
-                id, name, address, telephone, email, academicLevel, currentSemester, subjectsRegistered, thesisTitle, progress);
+        return String.format("Student[ID=%s, Name=%s, DOB=%s, Email=%s, Phone=%s, Address=%s, Dept=%s, Course=%s, Year=%s, Semester=%s, GPA=%s]", id, name, dob, email, phone, address, department, course, year, semester, gpa);
+    }
+}
+
+class Course {
+    String code, name, description, faculty, credits, schedule, prerequisites, department, semester;
+
+    public Course(String code, String name, String description, String faculty, String credits, String schedule, String prerequisites, String department, String semester) {
+        this.code = code;
+        this.name = name;
+        this.description = description;
+        this.faculty = faculty;
+        this.credits = credits;
+        this.schedule = schedule;
+        this.prerequisites = prerequisites;
+        this.department = department;
+        this.semester = semester;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Course[Code=%s, Name=%s, Faculty=%s, Credits=%s, Schedule=%s, Dept=%s, Semester=%s]", code, name, faculty, credits, schedule, department, semester);
+    }
+}
+
+class Event {
+    String id, name, date, time, location, description, organizer, participants, status;
+
+    public Event(String id, String name, String date, String time, String location, String description, String organizer, String participants, String status) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.time = time;
+        this.location = location;
+        this.description = description;
+        this.organizer = organizer;
+        this.participants = participants;
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Event[ID=%s, Name=%s, Date=%s, Time=%s, Location=%s, Organizer=%s, Status=%s]", id, name, date, time, location, organizer, status);
     }
 }
 
 class Subject {
-    String code;
-    String name;
+    String code, name;
 
     public Subject(String code, String name) {
         this.code = code;
@@ -82,160 +105,119 @@ class Subject {
     }
 }
 
-class Course {
-    String code;
-    String name;
-    String subjectCode;
-    String sectionNumber;
-    String capacity;
-    String lectureTime;
-    String finalExamDateTime;
-    String location;
-    String teacherName;
-
-    public Course(String code, String name, String subjectCode, String sectionNumber, String capacity, String lectureTime, String finalExamDateTime, String location, String teacherName) {
-        this.code = code;
-        this.name = name;
-        this.subjectCode = subjectCode;
-        this.sectionNumber = sectionNumber;
-        this.capacity = capacity;
-        this.lectureTime = lectureTime;
-        this.finalExamDateTime = finalExamDateTime;
-        this.location = location;
-        this.teacherName = teacherName;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Course[Code=%s, Name=%s, Subject=%s, Section=%s, Capacity=%s, Time=%s, Exam=%s, Location=%s, Teacher=%s]",
-                code, name, subjectCode, sectionNumber, capacity, lectureTime, finalExamDateTime, location, teacherName);
-    }
-}
-
-class Event {
-    String code;
-    String name;
-    String description;
-    String location;
-    String dateTime;
-    String capacity;
-    String cost;
-    String headerImage;
-    String registeredStudents;
-
-    public Event(String code, String name, String description, String location, String dateTime, String capacity, String cost, String headerImage, String registeredStudents) {
-        this.code = code;
-        this.name = name;
-        this.description = description;
-        this.location = location;
-        this.dateTime = dateTime;
-        this.capacity = capacity;
-        this.cost = cost;
-        this.headerImage = headerImage;
-        this.registeredStudents = registeredStudents;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Event[Code=%s, Name=%s, Description=%s, Location=%s, DateTime=%s, Capacity=%s, Cost=%s, Students=%s]",
-                code, name, description, location, dateTime, capacity, cost, registeredStudents);
-    }
-}
 
 class processFile {
-    public static List<Faculty> parseFaculties(String filePath) throws IOException {
+    public static List<Faculty> parseFaculties(Sheet sheet) {
         List<Faculty> faculties = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(new File(filePath).getAbsolutePath()))) {
-            String line;
-            br.readLine(); // Skip header
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                if (values.length >= 8) {
-                    faculties.add(new Faculty(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]));
-                }
-            }
+        for (Row row : sheet) {
+            if (row.getRowNum() == 0) continue;
+
+            List<String> values = getRowValues(row, 8);
+            if (values.stream().allMatch(String::isEmpty)) continue;
+
+            faculties.add(new Faculty(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4), values.get(5), values.get(6), values.get(7)));
         }
         return faculties;
     }
 
-    public static List<Student> parseStudents(String filePath) throws IOException {
+    public static List<Student> parseStudents(Sheet sheet) {
         List<Student> students = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(new File(filePath).getAbsolutePath()))) {
-            String line;
-            br.readLine(); // Skip header
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                if (values.length >= 12) {
-                    students.add(new Student(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10], values[11]));
-                }
-            }
+        for (Row row : sheet) {
+            if (row.getRowNum() == 0) continue;
+
+            List<String> values = getRowValues(row, 12);
+            if (values.stream().allMatch(String::isEmpty)) continue;
+
+            students.add(new Student(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4), values.get(5), values.get(6), values.get(7), values.get(8), values.get(9), values.get(10), values.get(11)));
         }
         return students;
     }
 
-    public static List<Subject> parseSubjects(String filePath) throws IOException {
-        List<Subject> subjects = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(new File(filePath).getAbsolutePath()))) {
-            String line;
-            br.readLine(); // Skip header
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                if (values.length >= 2) {
-                    subjects.add(new Subject(values[0], values[1]));
-                }
-            }
-        }
-        return subjects;
-    }
-
-    public static List<Course> parseCourses(String filePath) throws IOException {
+    public static List<Course> parseCourses(Sheet sheet) {
         List<Course> courses = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(new File(filePath).getAbsolutePath()))) {
-            String line;
-            br.readLine(); // Skip header
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                if (values.length >= 9) {
-                    courses.add(new Course(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]));
-                }
-            }
+        for (Row row : sheet) {
+            if (row.getRowNum() == 0) continue;
+
+            List<String> values = getRowValues(row, 9);
+            if (values.stream().allMatch(String::isEmpty)) continue;
+
+            courses.add(new Course(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4), values.get(5), values.get(6), values.get(7), values.get(8)));
         }
         return courses;
     }
 
-    public static List<Event> parseEvents(String filePath) throws IOException {
+    public static List<Event> parseEvents(Sheet sheet) {
         List<Event> events = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(new File(filePath).getAbsolutePath()))) {
-            String line;
-            br.readLine(); // Skip header
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                if (values.length >= 9) {
-                    events.add(new Event(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]));
-                }
-            }
+        for (Row row : sheet) {
+            if (row.getRowNum() == 0) continue;
+
+            List<String> values = getRowValues(row, 9);
+            if (values.stream().allMatch(String::isEmpty)) continue;
+
+            events.add(new Event(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4), values.get(5), values.get(6), values.get(7), values.get(8)));
         }
         return events;
     }
+
+    public static List<Subject> parseSubjects(Sheet sheet) {
+        List<Subject> subjects = new ArrayList<>();
+        for (Row row : sheet) {
+            if (row.getRowNum() == 0) continue;
+
+            List<String> values = getRowValues(row, 2);
+            if (values.stream().allMatch(String::isEmpty)) continue;
+
+            subjects.add(new Subject(values.get(0), values.get(1)));
+        }
+        return subjects;
+    }
+
+    private static List<String> getRowValues(Row row, int numCells) {
+        List<String> values = new ArrayList<>();
+        for (int i = 0; i < numCells; i++) {
+            values.add(getCellValue(row.getCell(i)));
+        }
+        return values;
+    }
+
+    private static String getCellValue(Cell cell) {
+        if (cell == null) {
+            return "";
+        }
+        switch (cell.getCellType()) {
+            case STRING:
+                return cell.getStringCellValue().trim();
+            case NUMERIC:
+                return String.valueOf(cell.getNumericCellValue()).trim();
+            case BOOLEAN:
+                return String.valueOf(cell.getBooleanCellValue()).trim();
+            case FORMULA:
+                return cell.getCellFormula().trim();
+            default:
+                return "";
+        }
+    }
 }
+
 
 public class FileProcessing {
     public static void main(String[] args) {
-        try {
-            List<Faculty> faculties = processFile.parseFaculties("src\\main\\resources\\Faculties.csv");
-            List<Student> students = processFile.parseStudents("src\\main\\resources\\Students.csv");
-            List<Course> courses = processFile.parseCourses("src\\main\\resources\\Courses.csv");
-            List<Event> events = processFile.parseEvents("src\\main\\resources\\Events.csv");
-            List<Subject> subjects = processFile.parseSubjects("src\\main\\resources\\Subjects.csv");
+        try (FileInputStream file = new FileInputStream(new File("src/main/resources/UMS_Data.xlsx").getAbsolutePath());
+             Workbook workbook = new XSSFWorkbook(file)) {
 
-            // Print parsed data
-            faculties.forEach(faculty -> System.out.println(faculty.toString()));
-            students.forEach(student -> System.out.println(student.toString()));
-            courses.forEach(course -> System.out.println(course.toString()));
-            events.forEach(event -> System.out.println(event.toString()));
-            subjects.forEach(subject -> System.out.println(subject.toString()));
+            List<Faculty> faculties = processFile.parseFaculties(workbook.getSheetAt(3));
+            List<Student> students = processFile.parseStudents(workbook.getSheetAt(2));
+            List<Course> courses = processFile.parseCourses(workbook.getSheetAt(1));
+            List<Event> events = processFile.parseEvents(workbook.getSheetAt(4));
+            List<Subject> subjects = processFile.parseSubjects(workbook.getSheetAt(0));
+
+            faculties.forEach(System.out::println);
+            students.forEach(System.out::println);
+            courses.forEach(System.out::println);
+            events.forEach(System.out::println);
+            subjects.forEach(System.out::println);
+
             System.out.println("Done");
-
         } catch (IOException e) {
             e.printStackTrace();
         }
