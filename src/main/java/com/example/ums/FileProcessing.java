@@ -23,11 +23,6 @@ class Faculty {
         this.coursesOffered = coursesOffered;
         this.password = password;
     }
-
-    @Override
-    public String toString() {
-        return "Faculty{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", degree='" + degree + '\'' + ", researchInterest='" + researchInterest + '\'' + ", email='" + email + '\'' + ", officeLocation='" + officeLocation + '\'' + ", coursesOffered='" + coursesOffered + '\'' + ", password='" + password + '\'' + '}';
-    }
 }
 
 class Student {
@@ -58,11 +53,6 @@ class Student {
         this.progress = progress;
         this.password = password;
     }
-
-    @Override
-    public String toString() {
-        return "Student{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", address='" + address + '\'' + ", telephone='" + telephone + '\'' + ", email='" + email + '\'' + ", academicLevel='" + academicLevel + '\'' + ", currentSemester='" + currentSemester + '\'' + ", profilePhoto='" + profilePhoto + '\'' + ", subjectsRegistered='" + subjectsRegistered + '\'' + ", thesisTitle='" + thesisTitle + '\'' + ", progress='" + progress + '\'' + ", password='" + password + '\'' + '}';
-    }
 }
 
 class Subject {
@@ -72,11 +62,6 @@ class Subject {
     public Subject(String code, String name) {
         this.code = code;
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Subject{" + "code='" + code + '\'' + ", name='" + name + '\'' + '}';
     }
 }
 
@@ -102,11 +87,6 @@ class Course {
         this.location = location;
         this.teacherName = teacherName;
     }
-
-    @Override
-    public String toString() {
-        return "Course{" + "code='" + code + '\'' + ", name='" + name + '\'' + ", subjectCode='" + subjectCode + '\'' + ", sectionNumber='" + sectionNumber + '\'' + ", capacity='" + capacity + '\'' + ", lectureTime='" + lectureTime + '\'' + ", finalExamDateTime='" + finalExamDateTime + '\'' + ", location='" + location + '\'' + ", teacherName='" + teacherName + '\'' + '}';
-    }
 }
 
 class Event {
@@ -131,14 +111,9 @@ class Event {
         this.headerImage = headerImage;
         this.registeredStudents = registeredStudents;
     }
-
-    @Override
-    public String toString() {
-        return "Event{" + "code='" + code + '\'' + ", name='" + name + '\'' + ", description='" + description + '\'' + ", location='" + location + '\'' + ", dateTime='" + dateTime + '\'' + ", capacity='" + capacity + '\'' + ", cost='" + cost + '\'' + ", headerImage='" + headerImage + '\'' + ", registeredStudents='" + registeredStudents + '\'' + '}';
-    }
 }
 
-public class FileProcessing {
+class processFile {
     public static List<Faculty> parseFaculties(String filePath) throws IOException {
         List<Faculty> faculties = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -169,18 +144,70 @@ public class FileProcessing {
         return students;
     }
 
+    public static List<Subject> parseSubjects(String filePath) throws IOException {
+        List<Subject> subjects = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            br.readLine(); // Skip header
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (values.length >= 2) {
+                    subjects.add(new Subject(values[0], values[1]));
+                }
+            }
+        }
+        return subjects;
+    }
+
+    public static List<Course> parseCourses(String filePath) throws IOException {
+        List<Course> courses = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            br.readLine(); // Skip header
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (values.length >= 9) {
+                    courses.add(new Course(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]));
+                }
+            }
+        }
+        return courses;
+    }
+
+    public static List<Event> parseEvents(String filePath) throws IOException {
+        List<Event> events = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            br.readLine(); // Skip header
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (values.length >= 9) {
+                    events.add(new Event(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]));
+                }
+            }
+        }
+        return events;
+    }
+}
+
+public class FileProcessing {
     public static void main(String[] args) {
         try {
-            List<Faculty> faculties = parseFaculties("C:\\Users\\Brodin's Thinkpad\\IdeaProjects\\UMS\\src\\main\\java\\com\\example\\ums\\Faculties.csv");
-            List<Student> students = parseStudents("C:\\Users\\Brodin's Thinkpad\\IdeaProjects\\UMS\\src\\main\\java\\com\\example\\ums\\Students.csv");
+            List<Faculty> faculties = processFile.parseFaculties("faculty.csv");
+            List<Student> students = processFile.parseStudents("students.csv");
+            List<Course> courses = processFile.parseCourses("faculty.csv");
+            List<Event> events = processFile.parseEvents("students.csv");
+            List<Subject> subjects = processFile.parseSubjects("faculty.csv");
 
-            System.out.println("Faculties:");
+            // Print parsed data
             faculties.forEach(System.out::println);
-
-            System.out.println("\nStudents:");
             students.forEach(System.out::println);
+            courses.forEach(System.out::println);
+            events.forEach(System.out::println);
+            subjects.forEach(System.out::println);
+
         } catch (IOException e) {
-            System.err.println("Error reading files: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }
