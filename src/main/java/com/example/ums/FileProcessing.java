@@ -6,10 +6,10 @@ import java.io.*;
 import java.util.*;
 
 class Faculty {
-    String id, name, degree, researchInterest, email, officeLocation, coursesOffered, password;
+    String facultyID, name, degree, researchInterest, email, officeLocation, coursesOffered, password;
 
-    public Faculty(String id, String name, String degree, String researchInterest, String email, String officeLocation, String coursesOffered, String password) {
-        this.id = id;
+    public Faculty(String facultyID, String name, String degree, String researchInterest, String email, String officeLocation, String coursesOffered, String password) {
+        this.facultyID = facultyID;
         this.name = name;
         this.degree = degree;
         this.researchInterest = researchInterest;
@@ -21,89 +21,97 @@ class Faculty {
 
     @Override
     public String toString() {
-        return String.format("Faculty[ID=%s, Name=%s, Degree=%s, Research=%s, Email=%s, Office=%s, Courses=%s]", id, name, degree, researchInterest, email, officeLocation, coursesOffered);
+        return String.format("Faculty[ID=%s, Name=%s, Degree=%s, Research Interest=%s, Email=%s, Office=%s, Courses Offered=%s]",
+                facultyID, name, degree, researchInterest, email, officeLocation, coursesOffered);
     }
 }
 
-class Student {
-    String id, name, dob, email, phone, address, department, course, year, semester, gpa, password;
 
-    public Student(String id, String name, String dob, String email, String phone, String address, String department, String course, String year, String semester, String gpa, String password) {
+class Student {
+    String id, name, address, telephone, email, academicLevel, currentSemester, profilePhoto, subjectsRegistered, thesisTitle, progress, password;
+
+    public Student(String id, String name, String address, String telephone, String email, String academicLevel, String currentSemester, String profilePhoto, String subjectsRegistered, String thesisTitle, String progress, String password) {
         this.id = id;
         this.name = name;
-        this.dob = dob;
-        this.email = email;
-        this.phone = phone;
         this.address = address;
-        this.department = department;
-        this.course = course;
-        this.year = year;
-        this.semester = semester;
-        this.gpa = gpa;
+        this.telephone = telephone;
+        this.email = email;
+        this.academicLevel = academicLevel;
+        this.currentSemester = currentSemester;
+        this.profilePhoto = profilePhoto;
+        this.subjectsRegistered = subjectsRegistered;
+        this.thesisTitle = thesisTitle;
+        this.progress = progress;
         this.password = password;
     }
 
     @Override
     public String toString() {
-        return String.format("Student[ID=%s, Name=%s, DOB=%s, Email=%s, Phone=%s, Address=%s, Dept=%s, Course=%s, Year=%s, Semester=%s, GPA=%s]", id, name, dob, email, phone, address, department, course, year, semester, gpa);
+        return String.format("Student[ID=%s Name=%s, Address=%s, Telephone=%s, Email=%s, Academic Level=%s, Current Semester=%s, Profile Photo=%s, Subjects Registered=%s, Thesis Title=%s, Progress=%s]",
+                id, name, address, telephone, email, academicLevel, currentSemester, profilePhoto, subjectsRegistered, thesisTitle, progress);
     }
 }
+
 
 class Course {
-    String code, name, description, faculty, credits, schedule, prerequisites, department, semester;
+    String courseName, subjectCode, sectionNumber, capacity, lectureTime, finalExamDateTime, location, teacherName;
 
-    public Course(String code, String name, String description, String faculty, String credits, String schedule, String prerequisites, String department, String semester) {
-        this.code = code;
-        this.name = name;
-        this.description = description;
-        this.faculty = faculty;
-        this.credits = credits;
-        this.schedule = schedule;
-        this.prerequisites = prerequisites;
-        this.department = department;
-        this.semester = semester;
+    public Course(String courseName, String subjectCode, String sectionNumber, String capacity, String lectureTime, String finalExamDateTime, String location, String teacherName) {
+        this.courseName = courseName;
+        this.subjectCode = subjectCode;
+        this.sectionNumber = sectionNumber;
+        this.capacity = capacity;
+        this.lectureTime = lectureTime;
+        this.finalExamDateTime = finalExamDateTime;
+        this.location = location;
+        this.teacherName = teacherName;
     }
 
     @Override
     public String toString() {
-        return String.format("Course[Code=%s, Name=%s, Faculty=%s, Credits=%s, Schedule=%s, Dept=%s, Semester=%s]", code, name, faculty, credits, schedule, department, semester);
+        return String.format("Course[Name=%s, Subject Code=%s, Section=%s, Capacity=%s, Lecture Time=%s, Final Exam=%s, Location=%s, Teacher=%s]",
+                courseName, subjectCode, sectionNumber, capacity, lectureTime, finalExamDateTime, location, teacherName);
     }
 }
+
 
 class Event {
-    String id, name, date, time, location, description, organizer, participants, status;
+    String eventCode, eventName, description, location, dateAndTime, capacity, cost, headerImage, registeredStudents;
 
-    public Event(String id, String name, String date, String time, String location, String description, String organizer, String participants, String status) {
-        this.id = id;
-        this.name = name;
-        this.date = date;
-        this.time = time;
-        this.location = location;
+    public Event(String eventCode, String eventName, String description, String location, String dateAndTime, String capacity, String cost, String headerImage, String registeredStudents) {
+        this.eventCode = eventCode;
+        this.eventName = eventName;
         this.description = description;
-        this.organizer = organizer;
-        this.participants = participants;
-        this.status = status;
+        this.location = location;
+        this.dateAndTime = dateAndTime;
+        this.capacity = capacity;
+        this.cost = cost;
+        this.headerImage = headerImage;
+        this.registeredStudents = registeredStudents;
     }
 
     @Override
     public String toString() {
-        return String.format("Event[ID=%s, Name=%s, Date=%s, Time=%s, Location=%s, Organizer=%s, Status=%s]", id, name, date, time, location, organizer, status);
+        return String.format("Event[Code=%s, Name=%s, Description=%s, Location=%s, Date and Time=%s, Capacity=%s, Cost=%s, Header Image=%s, Registered Students=%s]",
+                eventCode, eventName, description, location, dateAndTime, capacity, cost, headerImage, registeredStudents);
     }
 }
+
 
 class Subject {
-    String code, name;
+    String subjectCode, subjectName;
 
-    public Subject(String code, String name) {
-        this.code = code;
-        this.name = name;
+    public Subject(String subjectCode, String subjectName) {
+        this.subjectCode = subjectCode;
+        this.subjectName = subjectName;
     }
 
     @Override
     public String toString() {
-        return String.format("Subject[Code=%s, Name=%s]", code, name);
+        return String.format("Subject[Code=%s, Name=%s]", subjectCode, subjectName);
     }
 }
+
 
 
 class processFile {
@@ -141,7 +149,7 @@ class processFile {
             List<String> values = getRowValues(row, 9);
             if (values.stream().allMatch(String::isEmpty)) continue;
 
-            courses.add(new Course(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4), values.get(5), values.get(6), values.get(7), values.get(8)));
+            courses.add(new Course(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4), values.get(5), values.get(6), values.get(7)));
         }
         return courses;
     }
@@ -201,23 +209,23 @@ class processFile {
 
 
 public class FileProcessing {
-    public static void main(String[] args) {
+    public static List<Faculty> faculties = new ArrayList<>();
+    public static List<Student> students = new ArrayList<>();
+    public static List<Course> courses = new ArrayList<>();
+    public static List<Event> events = new ArrayList<>();
+    public static List<Subject> subjects = new ArrayList<>();
+
+    public static void loadData() {
         try (FileInputStream file = new FileInputStream(new File("src/main/resources/UMS_Data.xlsx").getAbsolutePath());
              Workbook workbook = new XSSFWorkbook(file)) {
 
-            List<Faculty> faculties = processFile.parseFaculties(workbook.getSheetAt(3));
-            List<Student> students = processFile.parseStudents(workbook.getSheetAt(2));
-            List<Course> courses = processFile.parseCourses(workbook.getSheetAt(1));
-            List<Event> events = processFile.parseEvents(workbook.getSheetAt(4));
-            List<Subject> subjects = processFile.parseSubjects(workbook.getSheetAt(0));
+            faculties = processFile.parseFaculties(workbook.getSheetAt(3));
+            students = processFile.parseStudents(workbook.getSheetAt(2));
+            courses = processFile.parseCourses(workbook.getSheetAt(1));
+            events = processFile.parseEvents(workbook.getSheetAt(4));
+            subjects = processFile.parseSubjects(workbook.getSheetAt(0));
 
-            faculties.forEach(System.out::println);
-            students.forEach(System.out::println);
-            courses.forEach(System.out::println);
-            events.forEach(System.out::println);
-            subjects.forEach(System.out::println);
-
-            System.out.println("Done");
+            System.out.println("Data loaded successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
