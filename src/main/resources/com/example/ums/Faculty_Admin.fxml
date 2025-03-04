@@ -20,11 +20,12 @@
                   <MenuItem fx:id="subjectButton" mnemonicParsing="false" onAction="#handleButtonActionSubject" text="Subject Management" />
                   <MenuItem fx:id="courseButton" mnemonicParsing="false" onAction="#handleButtonActionCourse" text="Course Management" />
                   <MenuItem fx:id="studentButton" mnemonicParsing="false" onAction="#handleButtonActionStudent" text="Student Management" />
-                  <MenuItem fx:id="facultyButton" mnemonicParsing="false"  text="Faculty Management" />
+                  <MenuItem fx:id="facultyButton" mnemonicParsing="false" text="Faculty Management" />
                   <MenuItem fx:id="eventButton" mnemonicParsing="false" onAction="#handleButtonActionEvent" text="Event Management" />
               </items>
             </MenuButton>
-            <Button layoutX="557.0" layoutY="305.0" mnemonicParsing="false" text="Faculty" />
+            <Button layoutX="105.0" layoutY="152.0" mnemonicParsing="false" text="Faculty" />
+            <Pane layoutX="105.0" layoutY="164.0" prefHeight="473.0" prefWidth="1031.0" />
          </children>
       </Pane>
    </children>
