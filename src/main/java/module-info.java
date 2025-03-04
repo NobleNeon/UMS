@@ -5,6 +5,7 @@ module com.example.ums {
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
     requires org.apache.poi.ooxml;
+    requires java.desktop;
 
     opens com.example.ums to javafx.fxml;
     exports com.example.ums;

@@ -8,7 +8,9 @@ import javafx.scene.control.TextField;
 import static com.example.ums.FileProcessing.faculties;
 import static com.example.ums.FileProcessing.students;
 
+
 public class LoginController {
+    public Boolean isAdmin;
     public Label usernameInput;
     public Label passwordInput;
     public TextField usernameField;
@@ -26,6 +28,14 @@ public class LoginController {
 
         if (isValidUser(userId, password)) {
             welcomeText.setText("Login successful!");
+            if (faculties.stream().anyMatch(f -> f.facultyID.equals(userId))){
+                isAdmin = true;
+                System.out.println("Admin logged in");
+            }
+            else{
+                isAdmin = false;
+                System.out.println("Student logged in");
+            }
         } else {
             welcomeText.setText("Invalid username or password.");
         }

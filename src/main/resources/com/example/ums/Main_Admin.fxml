@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="296.0" prefWidth="227.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.example.ums.LoginController">
+<VBox alignment="CENTER" maxHeight="360.0" maxWidth="640.0" minHeight="360.0" minWidth="640.0" prefHeight="360.0" prefWidth="640.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ums.MainAdminController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-    <Label fx:id="welcomeText11" layoutX="80.0" layoutY="112.0" text="Login Page">
-        <font>
-            <Font size="19.0" />
-        </font>
-    </Label>
-
-    <Label fx:id="welcomeText" text="Username" />
-    <TextField />
-    <Label fx:id="welcomeText1" layoutX="78.0" layoutY="30.0" text="Password" />
-    <PasswordField />
-    <Button onAction="#onHelloButtonClick" text="Login" />
+   <children>
+      <Pane prefHeight="476.0" prefWidth="612.0">
+         <children>
+            <MenuButton layoutX="7.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Menus">
+              <items>
+                <MenuItem fx:id="dashboardButton" mnemonicParsing="false" text="Dashboard" />
+                  <MenuItem fx:id="subjectButton" mnemonicParsing="false" onAction="#handleButtonAction" text="Subject Management" />
+                  <MenuItem fx:id="courseButton" mnemonicParsing="false" onAction="#handleButtonAction" text="Course Management" />
+                  <MenuItem fx:id="studentButton" mnemonicParsing="false" onAction="#handleButtonAction" text="Student Management" />
+                  <MenuItem fx:id="facultyButton" mnemonicParsing="false" onAction="#handleButtonAction" text="Faculty Management" />
+                  <MenuItem fx:id="eventButton" mnemonicParsing="false" onAction="#handleButtonAction" text="Event Management" />
+              </items>
+            </MenuButton>
+         </children>
+      </Pane>
+   </children>
 </VBox>
