@@ -24,15 +24,15 @@ public class FacultyAdminController {
         switchToAdminDashboardScene(event);
     }
     @FXML
-    protected void handleButtonActionCourse(ActionEvent event) {
+    protected void handleButtonActionSubject(ActionEvent event) {
         switchToAdminSubjectScene(event);
     }
     @FXML
-    protected void handleButtonActionStudent(ActionEvent event) {
+    protected void handleButtonActionCourse(ActionEvent event) {
         switchToAdminCourseScene(event);
     }
     @FXML
-    protected void handleButtonActionFaculty(ActionEvent event) {
+    protected void handleButtonActionStudent(ActionEvent event) {
         switchToAdminStudentScene(event);
     }
     @FXML

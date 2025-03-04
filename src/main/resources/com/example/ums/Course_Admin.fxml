@@ -17,8 +17,8 @@
             <MenuButton layoutX="7.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Menus">
               <items>
                 <MenuItem fx:id="dashboardButton" mnemonicParsing="false" onAction="#handleButtonActionDashboard" text="Dashboard" />
-                  <MenuItem fx:id="subjectButton" mnemonicParsing="false" text="Subject Management" />
-                  <MenuItem fx:id="courseButton" mnemonicParsing="false" onAction="#handleButtonActionCourse" text="Course Management" />
+                  <MenuItem fx:id="subjectButton" mnemonicParsing="false" onAction="#handleButtonActionSubject" text="Subject Management" />
+                  <MenuItem fx:id="courseButton" mnemonicParsing="false" text="Course Management" />
                   <MenuItem fx:id="studentButton" mnemonicParsing="false" onAction="#handleButtonActionStudent" text="Student Management" />
                   <MenuItem fx:id="facultyButton" mnemonicParsing="false" onAction="#handleButtonActionFaculty" text="Faculty Management" />
                   <MenuItem fx:id="eventButton" mnemonicParsing="false" onAction="#handleButtonActionEvent" text="Event Management" />

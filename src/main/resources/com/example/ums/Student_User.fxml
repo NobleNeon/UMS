@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ums.StudentAdminController">
+<VBox alignment="CENTER" maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ums.StudentUserController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -24,7 +24,7 @@
                   <MenuItem fx:id="eventButton" mnemonicParsing="false" onAction="#handleButtonActionEvent" text="Event Management" />
               </items>
             </MenuButton>
-            <Button layoutX="557.0" layoutY="305.0" mnemonicParsing="false" text="Student" />
+            <Button layoutX="557.0" layoutY="305.0" mnemonicParsing="false" text="Student User" />
          </children>
       </Pane>
    </children>

@@ -43,6 +43,7 @@ public class LoginController {
             } else {
                 isAdmin = false;
                 System.out.println("Student logged in");
+                switchToUserScene(event);
             }
         } else {
             welcomeText.setText("Invalid username or password.");
@@ -58,6 +59,21 @@ public class LoginController {
     private void switchToAdminScene(javafx.event.ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ums/Main_Admin.fxml")); // Update this path as needed
+            Parent adminRoot = loader.load();
+            Scene adminScene = new Scene(adminRoot);
+
+            // Get the current stage and switch scenes
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(adminScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void switchToUserScene(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ums/Main_User.fxml")); // Update this path as needed
             Parent adminRoot = loader.load();
             Scene adminScene = new Scene(adminRoot);
 

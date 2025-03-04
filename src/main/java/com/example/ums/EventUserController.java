@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class CourseAdminController {
+public class EventUserController {
 
     public MenuItem dashboardButton;
     public MenuItem subjectButton;
@@ -21,29 +21,29 @@ public class CourseAdminController {
 
     @FXML
     protected void handleButtonActionDashboard(ActionEvent event) {
-        switchToAdminDashboardScene(event);
+        switchToUserDashboardScene(event);
     }
     @FXML
     protected void handleButtonActionSubject(ActionEvent event) {
-        switchToAdminSubjectScene(event);
+        switchToUserSubjectScene(event);
+    }
+    @FXML
+    protected void handleButtonActionCourse(ActionEvent event) {
+        switchToUserCourseScene(event);
     }
     @FXML
     protected void handleButtonActionStudent(ActionEvent event) {
-        switchToAdminStudentScene(event);
+        switchToUserStudentScene(event);
     }
     @FXML
     protected void handleButtonActionFaculty(ActionEvent event) {
-        switchToAdminFacultyScene(event);
-    }
-    @FXML
-    protected void handleButtonActionEvent(ActionEvent event) {
-        switchToAdminEventScene(event);
+        switchToUserFacultyScene(event);
     }
 
     @FXML
-    private void switchToAdminDashboardScene(ActionEvent event) {
+    private void switchToUserDashboardScene(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ums/Main_Admin.fxml")); // Update if needed
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ums/Main_User.fxml")); // Update if needed
             Parent subjectRoot = loader.load();
             Scene subjectScene = new Scene(subjectRoot);
 
@@ -57,9 +57,9 @@ public class CourseAdminController {
     }
 
     @FXML
-    private void switchToAdminSubjectScene(ActionEvent event) {
+    private void switchToUserSubjectScene(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ums/Subject_Admin.fxml")); // Update if needed
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ums/Subject_User.fxml")); // Update if needed
             Parent subjectRoot = loader.load();
             Scene subjectScene = new Scene(subjectRoot);
 
@@ -73,9 +73,9 @@ public class CourseAdminController {
     }
 
     @FXML
-    private void switchToAdminStudentScene(ActionEvent event) {
+    private void switchToUserCourseScene(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ums/Student_Admin.fxml")); // Update if needed
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ums/Course_User.fxml")); // Update if needed
             Parent subjectRoot = loader.load();
             Scene subjectScene = new Scene(subjectRoot);
 
@@ -89,9 +89,9 @@ public class CourseAdminController {
     }
 
     @FXML
-    private void switchToAdminFacultyScene(ActionEvent event) {
+    private void switchToUserStudentScene(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ums/Faculty_Admin.fxml")); // Update if needed
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ums/Student_User.fxml")); // Update if needed
             Parent subjectRoot = loader.load();
             Scene subjectScene = new Scene(subjectRoot);
 
@@ -105,9 +105,9 @@ public class CourseAdminController {
     }
 
     @FXML
-    private void switchToAdminEventScene(ActionEvent event) {
+    private void switchToUserFacultyScene(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ums/Event_Admin.fxml")); // Update if needed
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ums/Faculty_User.fxml")); // Update if needed
             Parent subjectRoot = loader.load();
             Scene subjectScene = new Scene(subjectRoot);
 
