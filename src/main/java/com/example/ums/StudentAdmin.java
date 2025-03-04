@@ -7,12 +7,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class SubjectAdmin extends Application {
+public class StudentAdmin extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SubjectAdmin.class.getResource("Subject_Admin.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(StudentAdmin.class.getResource("Student_Admin.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 680);
-        stage.setTitle("Subject_Admin");
+        stage.setTitle("Student_Admin");
         stage.setScene(scene);
         stage.show();
     }
