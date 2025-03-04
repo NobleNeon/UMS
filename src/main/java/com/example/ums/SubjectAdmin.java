@@ -5,13 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 
-public class MainAdmin extends Application {
+public class SubjectAdmin extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainAdmin.class.getResource("Main_Admin.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SubjectAdmin.class.getResource("Main_Admin.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 680);
         stage.setTitle("Main_Admin");
         stage.setScene(scene);
