@@ -50,6 +50,38 @@ class Student {
         return String.format("Student[ID=%s Name=%s, Address=%s, Telephone=%s, Email=%s, Academic Level=%s, Current Semester=%s, Profile Photo=%s, Subjects Registered=%s, Thesis Title=%s, Progress=%s]",
                 id, name, address, telephone, email, academicLevel, currentSemester, profilePhoto, subjectsRegistered, thesisTitle, progress);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getAcademicLevel() {
+        return academicLevel;
+    }
+
+    public String getCurrentSemester() {
+        return currentSemester;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public String getSubject() {
+        return subjectsRegistered;
+    }
+
+    public String getGrade() {
+        return progress;
+    }
 }
 
 
