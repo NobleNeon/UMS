@@ -3,14 +3,22 @@ package com.example.ums;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class CourseAdminController {
+import static com.example.ums.FileProcessing.courses;
+import static com.example.ums.FileProcessing.subjects;
+
+public class CourseAdminController implements Initializable {
 
     public MenuItem dashboardButton;
     public MenuItem subjectButton;
@@ -18,6 +26,8 @@ public class CourseAdminController {
     public MenuItem studentButton;
     public MenuItem facultyButton;
     public MenuItem eventButton;
+    public ListView<String> CourseList;
+    public Button DeleteButton;
 
     @FXML
     protected void handleButtonActionDashboard(ActionEvent event) {
@@ -122,5 +132,156 @@ public class CourseAdminController {
 
 
     public void handleButtonAction(ActionEvent actionEvent) {
+    }
+
+    public void handleAddCourse(ActionEvent event) {
+        // Function to prompt user for input
+        String courseCode = getInput("Enter Course Code:");
+        if (courseCode == null) return;
+
+        String courseName = getInput("Enter Course Name:");
+        if (courseName == null) return;
+
+        String sectionNumber = getInput("Enter Section Number:");
+        if (sectionNumber == null) return;
+
+        String subjectCode = getInput("Enter Subject Code:");
+        if (subjectCode == null) return;
+
+        String capacity = getInput("Enter Course Capacity:");
+        if (capacity == null) return;
+
+        String lectureTime = getInput("Enter Lecture Time:");
+        if (lectureTime == null) return;
+
+        String finalExamDateTime = getInput("Enter Final Exam Date & Time:");
+        if (finalExamDateTime == null) return;
+
+        String location = getInput("Enter Course Location:");
+        if (location == null) return;
+
+        String teacherName = getInput("Enter Teacher's Name:");
+        if (teacherName == null) return;
+
+        // Create a new course object (assuming a constructor exists)
+        Course newCourse = new Course(courseCode, courseName, sectionNumber, subjectCode, capacity, lectureTime, finalExamDateTime, location, teacherName);
+
+        // Add to list and refresh UI
+        courses.add(newCourse);
+        refreshCourseList();
+    }
+
+    // Helper method to display a TextInputDialog
+    private String getInput(String prompt) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Course Input");
+        dialog.setHeaderText(null);
+        dialog.setContentText(prompt);
+
+        Optional<String> result = dialog.showAndWait();
+        return result.orElse(null);
+    }
+
+    private void refreshCourseList() {
+        CourseList.getItems().clear();
+        for (Course course : courses) {
+            CourseList.getItems().add(course.toString());
+        }
+    }
+
+    public void handleEditCourse(ActionEvent event) {
+        // Get the selected course from the ListView
+        int selectedIndex = CourseList.getSelectionModel().getSelectedIndex();
+
+        if (selectedIndex == -1) {
+            showAlert("No Course Selected", "Please select a course to edit.");
+            return;
+        }
+
+        // Get the existing course object
+        Course selectedCourse = courses.get(selectedIndex);
+
+        // Ask for new values using TextInputDialogs
+        String newCourseCode = showInputDialog("Edit Course Code", "Enter new course code:", selectedCourse.getCourseCode());
+        String newCourseName = showInputDialog("Edit Course Name", "Enter new course name:", selectedCourse.getCourseName());
+        String newSectionNumber = showInputDialog("Edit Section Number", "Enter new section number:", selectedCourse.getSectionNumber());
+        String newSubjectCode = showInputDialog("Edit Subject Code", "Enter new subject code:", selectedCourse.getSubjectCode());
+        String newCapacity = showInputDialog("Edit Capacity", "Enter new capacity:", String.valueOf(selectedCourse.getCapacity()));
+        String newLectureTime = showInputDialog("Edit Lecture Time", "Enter new lecture time:", selectedCourse.getLectureTime());
+        String newFinalExamDateTime = showInputDialog("Edit Final Exam Date", "Enter new final exam date/time:", selectedCourse.getFinalExamDateTime());
+        String newLocation = showInputDialog("Edit Location", "Enter new location:", selectedCourse.getLocation());
+        String newTeacherName = showInputDialog("Edit Teacher Name", "Enter new teacher name:", selectedCourse.getTeacherName());
+
+        // Update the course object
+        selectedCourse.setCourseCode(newCourseCode);
+        selectedCourse.setCourseName(newCourseName);
+        selectedCourse.setSectionNumber(newSectionNumber);
+        selectedCourse.setSubjectCode(newSubjectCode);
+        selectedCourse.setCapacity(newCapacity);
+        selectedCourse.setLectureTime(newLectureTime);
+        selectedCourse.setFinalExamDateTime(newFinalExamDateTime);
+        selectedCourse.setLocation(newLocation);
+        selectedCourse.setTeacherName(newTeacherName);
+
+        // Refresh the list to reflect changes
+        refreshCourseList();
+    }
+
+    // Helper method to show input dialog
+    private String showInputDialog(String title, String message, String defaultValue) {
+        TextInputDialog dialog = new TextInputDialog(defaultValue);
+        dialog.setTitle(title);
+        dialog.setHeaderText(null);
+        dialog.setContentText(message);
+
+        Optional<String> result = dialog.showAndWait();
+        return result.orElse(defaultValue); // Return existing value if nothing is entered
+    }
+
+    public void handleDeleteCourse(ActionEvent event) {
+        // Get the selected course from the ListView
+        int selectedIndex = CourseList.getSelectionModel().getSelectedIndex();
+
+        if (selectedIndex == -1) {
+            showAlert("No Course Selected", "Please select a course to delete.");
+            return;
+        }
+
+        // Confirmation alert before deletion
+        Course selectedCourse = courses.get(selectedIndex);
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setTitle("Confirm Deletion");
+        confirmation.setHeaderText("Are you sure you want to delete this course?");
+        confirmation.setContentText(selectedCourse.toString());
+
+        // Check if user confirmed deletion
+        Optional<ButtonType> result = confirmation.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Remove from list and refresh UI
+            courses.remove(selectedIndex);
+            refreshCourseList();
+        }
+    }
+
+    // Helper method to show an alert
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Initialize the subjectList as a new ArrayList
+        ArrayList<String> courseList = new ArrayList<>();
+
+        // Assuming 'subjects' is already defined and contains a list of subject objects
+        for (int i = 0; i < courses.size(); i++) {
+            courseList.add(courses.get(i).toString());  // Add each subject to the list
+        }
+
+        // Assuming 'subjectListView' is your ListView or appropriate control
+        CourseList.getItems().addAll(courseList);
     }
 }

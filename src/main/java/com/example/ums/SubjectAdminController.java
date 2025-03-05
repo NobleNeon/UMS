@@ -7,12 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextInputDialog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import java.util.Optional;
@@ -266,9 +262,18 @@ public class SubjectAdminController implements Initializable {
         String selectedSubject = SubjectList.getSelectionModel().getSelectedItem();
 
         if (selectedSubject != null) {
-            removeSubjectFromList(selectedSubject);
-            SubjectList.getItems().remove(selectedSubject);
-            SubjectList.refresh();
+            // Confirm deletion (Optional: use a dialog to confirm)
+            boolean confirm = showConfirmationDialog("Are you sure you want to delete the subject: " + selectedSubject + "?");
+            if (confirm) {
+                // Remove from the List<Subject>
+                removeSubjectFromList(selectedSubject);
+
+                // Remove from the ListView
+                SubjectList.getItems().remove(selectedSubject);
+
+                // Optionally, refresh the ListView
+                SubjectList.refresh();
+            }
         }
     }
 
@@ -281,6 +286,17 @@ public class SubjectAdminController implements Initializable {
             }
         }
     }
+
+    private boolean showConfirmationDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Deletion");
+        alert.setHeaderText("Delete Subject");
+        alert.setContentText(message);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -25,7 +25,7 @@ public class SubjectUserController implements Initializable {
     public MenuItem studentButton;
     public MenuItem facultyButton;
     public MenuItem eventButton;
-    public ListView SubjectList;
+    public ListView<String> SubjectList;
 
     @FXML
     protected void handleButtonActionDashboard(ActionEvent event) {

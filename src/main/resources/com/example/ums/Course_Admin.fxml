@@ -5,6 +5,8 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
 
 <VBox alignment="CENTER" maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ums.CourseAdminController">
     <padding>
@@ -23,6 +25,10 @@
                   <MenuItem fx:id="eventButton" mnemonicParsing="false" onAction="#handleButtonActionEvent" text="Event Management" />
               </items>
             </MenuButton>
+             <ListView fx:id="CourseList" layoutX="160.0" layoutY="95.0" prefHeight="491.0" prefWidth="920.0" />
+             <Button layoutX="160.0" layoutY="70.0" mnemonicParsing="false" text="Add" onAction="#handleAddCourse" />
+             <Button layoutX="213.0" layoutY="70.0" mnemonicParsing="false" text="Edit" onAction="#handleEditCourse" />
+             <Button fx:id="DeleteButton" layoutX="264.0" layoutY="70.0" mnemonicParsing="false" text="Delete" onAction="#handleDeleteCourse" />
          </children>
       </Pane>
    </children>

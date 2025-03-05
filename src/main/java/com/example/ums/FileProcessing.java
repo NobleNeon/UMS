@@ -95,12 +95,13 @@ class Student {
 
 
 class Course {
-    String courseName, subjectCode, sectionNumber, capacity, lectureTime, finalExamDateTime, location, teacherName;
+    String courseCode, courseName, sectionNumber, subjectCode, capacity, lectureTime, finalExamDateTime, location, teacherName;
 
-    public Course(String courseName, String subjectCode, String sectionNumber, String capacity, String lectureTime, String finalExamDateTime, String location, String teacherName) {
+    public Course(String courseCode, String courseName, String sectionNumber, String subjectCode, String capacity, String lectureTime, String finalExamDateTime, String location, String teacherName) {
+        this.courseCode = courseCode;
         this.courseName = courseName;
-        this.subjectCode = subjectCode;
         this.sectionNumber = sectionNumber;
+        this.subjectCode = subjectCode;
         this.capacity = capacity;
         this.lectureTime = lectureTime;
         this.finalExamDateTime = finalExamDateTime;
@@ -110,8 +111,81 @@ class Course {
 
     @Override
     public String toString() {
-        return String.format("Course[Name=%s, Subject Code=%s, Section=%s, Capacity=%s, Lecture Time=%s, Final Exam=%s, Location=%s, Teacher=%s]",
-                courseName, subjectCode, sectionNumber, capacity, lectureTime, finalExamDateTime, location, teacherName);
+        return String.format("Course Code: %s Course Name: %s  Section: %s Subject Code: %s Capacity: %s Lecture Time: %s Final Exam Date/Time: %s Location: %s Teacher Name: %s",
+                courseCode, courseName, sectionNumber, subjectCode, capacity, lectureTime, finalExamDateTime, location, teacherName);
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public String getSectionNumber() {
+        return sectionNumber;
+    }
+
+    public String getSubjectCode() {
+        return subjectCode;
+    }
+
+    public String getCapacity() {  // Updated to return String
+        return capacity;
+    }
+
+    public String getLectureTime() {
+        return lectureTime;
+    }
+
+    public String getFinalExamDateTime() {
+        return finalExamDateTime;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    // Setters
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public void setSectionNumber(String sectionNumber) {
+        this.sectionNumber = sectionNumber;
+    }
+
+    public void setSubjectCode(String subjectCode) {
+        this.subjectCode = subjectCode;
+    }
+
+    public void setCapacity(String capacity) {  // Updated to accept String
+        this.capacity = capacity;
+    }
+
+    public void setLectureTime(String lectureTime) {
+        this.lectureTime = lectureTime;
+    }
+
+    public void setFinalExamDateTime(String finalExamDateTime) {
+        this.finalExamDateTime = finalExamDateTime;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 }
 
@@ -190,7 +264,7 @@ class processFile {
             List<String> values = getRowValues(row, 9);
             if (values.stream().allMatch(String::isEmpty)) continue;
 
-            courses.add(new Course(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4), values.get(5), values.get(6), values.get(7)));
+            courses.add(new Course(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4), values.get(5), values.get(6), values.get(7), values.get(8)));
         }
         return courses;
     }
