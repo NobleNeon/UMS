@@ -25,10 +25,10 @@
                   <MenuItem fx:id="eventButton" mnemonicParsing="false" onAction="#handleButtonActionEvent" text="Event Management" />
               </items>
             </MenuButton>
-            <ListView layoutX="160.0" layoutY="95.0" prefHeight="491.0" prefWidth="920.0" />
-            <Button layoutX="160.0" layoutY="95.0" mnemonicParsing="false" text="Add" />
-            <Button layoutX="212.0" layoutY="95.0" mnemonicParsing="false" text="Edit" />
-            <Button layoutX="264.0" layoutY="95.0" mnemonicParsing="false" text="Delete" />
+            <ListView fx:id="SubjectList" layoutX="160.0" layoutY="95.0" prefHeight="491.0" prefWidth="920.0" />
+            <Button layoutX="160.0" layoutY="70.0" mnemonicParsing="false" text="Add" />
+            <Button layoutX="213.0" layoutY="70.0" mnemonicParsing="false" text="Edit" />
+            <Button fx:id="DeleteButton" layoutX="264.0" layoutY="70.0" mnemonicParsing="false" text="Delete" />
          </children>
       </Pane>
    </children>

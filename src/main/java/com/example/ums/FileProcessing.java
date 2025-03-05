@@ -108,7 +108,7 @@ class Subject {
 
     @Override
     public String toString() {
-        return String.format("Subject[Code=%s, Name=%s]", subjectCode, subjectName);
+        return String.format("Code: %s, Name: %s", subjectCode, subjectName);
     }
 }
 
