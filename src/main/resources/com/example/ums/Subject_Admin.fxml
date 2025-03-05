@@ -26,9 +26,9 @@
               </items>
             </MenuButton>
             <ListView fx:id="SubjectList" layoutX="160.0" layoutY="95.0" prefHeight="491.0" prefWidth="920.0" />
-            <Button layoutX="160.0" layoutY="70.0" mnemonicParsing="false" text="Add" />
-            <Button layoutX="213.0" layoutY="70.0" mnemonicParsing="false" text="Edit" />
-            <Button fx:id="DeleteButton" layoutX="264.0" layoutY="70.0" mnemonicParsing="false" text="Delete" />
+             <Button layoutX="160.0" layoutY="70.0" mnemonicParsing="false" text="Add" onAction="#handleAddSubject" />
+             <Button layoutX="213.0" layoutY="70.0" mnemonicParsing="false" text="Edit" onAction="#handleEditSubject" />
+             <Button fx:id="DeleteButton" layoutX="264.0" layoutY="70.0" mnemonicParsing="false" text="Delete" onAction="#handleDeleteSubject" />
          </children>
       </Pane>
    </children>

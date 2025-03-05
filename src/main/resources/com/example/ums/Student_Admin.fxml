@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
-<VBox alignment="CENTER" maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ums.StudentAdminController">
+<VBox alignment="CENTER" maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ums.StudentAdminController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -23,7 +32,7 @@
               </items>
             </MenuButton>
             <TextField fx:id="studentName" layoutX="151.0" layoutY="131.0" prefHeight="25.0" prefWidth="157.0" promptText="Student/Faculty Name" />
-            <Button layoutX="100.0" layoutY="131.0" mnemonicParsing="false" onAction="#studentLookUp" text="Search" />
+            <Button layoutX="100.0" layoutY="131.0" mnemonicParsing="false" onAction="#studentSearchRecommendations" text="Search" />
             <Pane layoutX="100.0" layoutY="156.0" prefHeight="507.0" prefWidth="1035.0">
                <children>
                   <Label layoutX="16.0" prefHeight="44.0" prefWidth="196.0" text="Student/ Faculty Name " />
@@ -55,8 +64,8 @@
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <Label layoutX="20.0" layoutY="31.0" prefHeight="17.0" prefWidth="51.0" text="Subject:" />
-                                    <Label layoutX="71.0" layoutY="31.0" prefHeight="17.0" prefWidth="140.0" fx:id="studentSubject"/>
-                                    <Label layoutX="183.0" layoutY="31.0" prefHeight="17.0" prefWidth="74.0" fx:id="studentGrade"/>
+                                    <Label fx:id="studentSubject" layoutX="71.0" layoutY="31.0" prefHeight="17.0" prefWidth="140.0" />
+                                    <Label fx:id="studentGrade" layoutX="183.0" layoutY="31.0" prefHeight="17.0" prefWidth="74.0" />
                                  </children></AnchorPane>
                         </content>
                       </Tab>
@@ -80,6 +89,7 @@
                   </TabPane>
                </children>
             </Pane>
+            <ListView fx:id="studentSuggestionsList" layoutX="308.0" layoutY="1.0" prefHeight="157.0" prefWidth="200.0" />
          </children>
       </Pane>
    </children>

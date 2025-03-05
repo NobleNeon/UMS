@@ -11,6 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import java.util.Optional;
 
 import java.io.IOException;
 import java.net.URL;
@@ -133,6 +138,148 @@ public class SubjectAdminController implements Initializable {
 
 
     public void handleButtonAction(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    private void handleAddSubject(ActionEvent event) {
+        // Create a TextInputDialog for getting the subject code
+        TextInputDialog subjectCodeDialog = new TextInputDialog();
+        subjectCodeDialog.setTitle("Add New Subject");
+        subjectCodeDialog.setHeaderText("Enter Subject Code:");
+        subjectCodeDialog.setContentText("Subject Code:");
+
+        // Show the dialog and capture the result for subject code
+        Optional<String> subjectCodeResult = subjectCodeDialog.showAndWait();
+        if (subjectCodeResult.isPresent()) {
+            String subjectCode = subjectCodeResult.get();
+
+            // Now, ask for the subject name
+            TextInputDialog subjectNameDialog = new TextInputDialog();
+            subjectNameDialog.setTitle("Add New Subject");
+            subjectNameDialog.setHeaderText("Enter Subject Name:");
+            subjectNameDialog.setContentText("Subject Name:");
+
+            // Show the dialog and capture the result for subject name
+            Optional<String> subjectNameResult = subjectNameDialog.showAndWait();
+            if (subjectNameResult.isPresent()) {
+                String subjectName = subjectNameResult.get();
+
+                // Create a new Subject object
+                Subject newSubject = new Subject(subjectCode, subjectName);
+
+                // Add the new Subject to the List<Subject>
+                subjects.add(newSubject);
+
+                // Add the new Subject to the ListView (using toString() to display)
+                SubjectList.getItems().add(newSubject.toString());
+
+                // Optionally, refresh the ListView to ensure it reflects the change
+                SubjectList.refresh();
+            } else {
+                // If the user cancels or does not provide a subject name
+                showAlert("Input Error", "Subject Name is required.");
+            }
+        } else {
+            // If the user cancels or does not provide a subject code
+            showAlert("Input Error", "Subject Code is required.");
+        }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
+    @FXML
+    private void handleEditSubject(ActionEvent event) {
+        // Get the currently selected subject from the ListView
+        String selectedSubjectString = SubjectList.getSelectionModel().getSelectedItem();
+
+        if (selectedSubjectString != null) {
+            // Extract the subject code and name from the selected subject string
+            String[] parts = selectedSubjectString.split(", ");
+            String subjectCode = parts[0].split(": ")[1];  // Extract code part (e.g., "CS101")
+            String subjectName = parts[1].split(": ")[1];  // Extract name part (e.g., "Computer Science 101")
+
+            // Create dialogs to edit the subject code and name
+            TextInputDialog subjectCodeDialog = new TextInputDialog(subjectCode);
+            subjectCodeDialog.setTitle("Edit Subject");
+            subjectCodeDialog.setHeaderText("Edit Subject Code:");
+            subjectCodeDialog.setContentText("Subject Code:");
+
+            Optional<String> newSubjectCodeResult = subjectCodeDialog.showAndWait();
+            if (newSubjectCodeResult.isPresent()) {
+                String newSubjectCode = newSubjectCodeResult.get();
+
+                // Now, ask for the new subject name
+                TextInputDialog subjectNameDialog = new TextInputDialog(subjectName);
+                subjectNameDialog.setTitle("Edit Subject");
+                subjectNameDialog.setHeaderText("Edit Subject Name:");
+                subjectNameDialog.setContentText("Subject Name:");
+
+                Optional<String> newSubjectNameResult = subjectNameDialog.showAndWait();
+                if (newSubjectNameResult.isPresent()) {
+                    String newSubjectName = newSubjectNameResult.get();
+
+                    // Update the selected subject in the List<Subject>
+                    Subject selectedSubject = getSubjectByCode(subjectCode);
+                    if (selectedSubject != null) {
+                        selectedSubject.subjectCode = newSubjectCode;
+                        selectedSubject.subjectName = newSubjectName;
+
+                        // Refresh the ListView to reflect the changes
+                        SubjectList.getItems().clear();  // Clear current items
+                        for (Subject subject : subjects) {
+                            SubjectList.getItems().add(subject.toString());  // Add updated subjects
+                        }
+                    }
+                } else {
+                    // If the user cancels or does not provide a new subject name
+                    showAlert("Input Error", "Subject Name is required.");
+                }
+            } else {
+                // If the user cancels or does not provide a new subject code
+                showAlert("Input Error", "Subject Code is required.");
+            }
+        } else {
+            // If no subject is selected
+            showAlert("Selection Error", "Please select a subject to edit.");
+        }
+    }
+
+    private Subject getSubjectByCode(String subjectCode) {
+        for (Subject subject : subjects) {
+            if (subject.subjectCode.equals(subjectCode)) {
+                return subject;
+            }
+        }
+        return null;
+    }
+
+    @FXML
+    private void handleDeleteSubject(ActionEvent event) {
+        // Get the selected subject from the ListView
+        String selectedSubject = SubjectList.getSelectionModel().getSelectedItem();
+
+        if (selectedSubject != null) {
+            removeSubjectFromList(selectedSubject);
+            SubjectList.getItems().remove(selectedSubject);
+            SubjectList.refresh();
+        }
+    }
+
+    private void removeSubjectFromList(String subject) {
+        // Assuming subjects is a List<Subject>, find and remove the subject
+        for (Subject s : subjects) {
+            if (s.toString().equals(subject)) {
+                subjects.remove(s);
+                break;
+            }
+        }
     }
 
     @Override
