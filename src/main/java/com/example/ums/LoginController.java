@@ -35,16 +35,25 @@ public class LoginController {
         students.forEach(System.out::println);
 
         if (isValidUser(userId, password)) {
-            welcomeText.setText("Login successful!");
-            if (faculties.stream().anyMatch(f -> f.facultyID.equals(userId))) {
+            // Find the faculty member with the given ID
+            Faculty loggedInFaculty = null;
+            for (Faculty faculty : faculties) {
+                if (faculty.getId().equals(userId)) {
+                    loggedInFaculty = faculty;
+                    break;
+                }
+            }
+
+            // Check if the user is an Admin
+            if (loggedInFaculty != null && "ADMIN".equals(loggedInFaculty.getRole())) {
                 isAdmin = true;
-                System.out.println("Admin logged in");
                 switchToAdminScene(event);
             } else {
                 isAdmin = false;
-                System.out.println("Student logged in");
+                System.out.println("User logged in");
                 switchToUserScene(event);
             }
+
         } else {
             welcomeText.setText("Invalid username or password.");
         }

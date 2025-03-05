@@ -6,9 +6,9 @@ import java.io.*;
 import java.util.*;
 
 class Faculty {
-    String facultyID, name, degree, researchInterest, email, officeLocation, coursesOffered, password;
+    String facultyID, name, degree, researchInterest, email, officeLocation, coursesOffered, password, role;
 
-    public Faculty(String facultyID, String name, String degree, String researchInterest, String email, String officeLocation, String coursesOffered, String password) {
+    public Faculty(String facultyID, String name, String degree, String researchInterest, String email, String officeLocation, String coursesOffered, String password, String role) {
         this.facultyID = facultyID;
         this.name = name;
         this.degree = degree;
@@ -17,12 +17,21 @@ class Faculty {
         this.officeLocation = officeLocation;
         this.coursesOffered = coursesOffered;
         this.password = password;
+        this.role = role;
     }
 
     @Override
     public String toString() {
-        return String.format("Faculty[ID=%s, Name=%s, Degree=%s, Research Interest=%s, Email=%s, Office=%s, Courses Offered=%s]",
-                facultyID, name, degree, researchInterest, email, officeLocation, coursesOffered);
+        return String.format("Faculty[ID=%s, Name=%s, Degree=%s, Research Interest=%s, Email=%s, Office=%s, Courses Offered=%s, Role=%s]",
+                facultyID, name, degree, researchInterest, email, officeLocation, coursesOffered, role);
+    }
+
+    public Object getId() {
+        return facultyID;
+    }
+
+    public String getRole() {
+        return role;
     }
 }
 
@@ -152,10 +161,10 @@ class processFile {
         for (Row row : sheet) {
             if (row.getRowNum() == 0) continue;
 
-            List<String> values = getRowValues(row, 8);
+            List<String> values = getRowValues(row, 9);
             if (values.stream().allMatch(String::isEmpty)) continue;
 
-            faculties.add(new Faculty(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4), values.get(5), values.get(6), values.get(7)));
+            faculties.add(new Faculty(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4), values.get(5), values.get(6), values.get(7), values.get(8)));
         }
         return faculties;
     }
