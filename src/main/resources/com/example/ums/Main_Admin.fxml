@@ -27,7 +27,7 @@
                   <MenuItem fx:id="eventButton" mnemonicParsing="false" onAction="#handleButtonActionEvent" text="Event Management" />
               </items>
             </MenuButton>
-            <Label layoutX="554.0" layoutY="65.0" prefHeight="28.0" prefWidth="149.0" text="    Events River">
+            <Label layoutX="546.0" layoutY="65.0" prefHeight="28.0" prefWidth="149.0" text="    Events River">
                <font>
                   <Font size="19.0" />
                </font>
