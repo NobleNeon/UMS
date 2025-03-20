@@ -26,19 +26,23 @@ public class LoginController {
     @FXML
     private Label welcomeText;
 
+    public class GlobalVariables {
+        public static String userId;
+    }
+
     @FXML
     protected void onHelloButtonClick(ActionEvent event) {
-        String userId = usernameField.getText();
+        GlobalVariables.userId = usernameField.getText();
         String password = passwordField.getText();
 
-        System.out.println("User input - ID: " + userId + ", Password: " + password);
+        System.out.println("User input - ID: " + GlobalVariables.userId + ", Password: " + password);
         students.forEach(System.out::println);
 
-        if (isValidUser(userId, password)) {
+        if (isValidUser(GlobalVariables.userId, password)) {
             // Find the faculty member with the given ID
             Faculty loggedInFaculty = null;
             for (Faculty faculty : faculties) {
-                if (faculty.getId().equals(userId)) {
+                if (faculty.getId().equals(GlobalVariables.userId)) {
                     loggedInFaculty = faculty;
                     break;
                 }
