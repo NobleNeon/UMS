@@ -32,7 +32,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         System.out.println("User input - ID: " + userId + ", Password: " + password);
-        students.forEach(System.out::println);
+        //students.forEach(System.out::println);
 
         if (isValidUser(userId, password)) {
             // Find the faculty member with the given ID

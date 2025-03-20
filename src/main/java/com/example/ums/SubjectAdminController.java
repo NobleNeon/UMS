@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static com.example.ums.FileProcessing.subjects;
+import static com.example.ums.FileProcessing.*;
 
 public class SubjectAdminController implements Initializable {
 
@@ -138,6 +138,7 @@ public class SubjectAdminController implements Initializable {
 
     @FXML
     private void handleAddSubject(ActionEvent event) {
+        int indexnum = 0;
         // Create a TextInputDialog for getting the subject code
         TextInputDialog subjectCodeDialog = new TextInputDialog();
         subjectCodeDialog.setTitle("Add New Subject");
@@ -165,7 +166,7 @@ public class SubjectAdminController implements Initializable {
 
                 // Add the new Subject to the List<Subject>
                 subjects.add(newSubject);
-
+                addData(null,null,newSubject,indexnum);;
                 // Add the new Subject to the ListView (using toString() to display)
                 SubjectList.getItems().add(newSubject.toString());
 
@@ -192,6 +193,7 @@ public class SubjectAdminController implements Initializable {
 
     @FXML
     private void handleEditSubject(ActionEvent event) {
+        int indexnum = 0;
         // Get the currently selected subject from the ListView
         String selectedSubjectString = SubjectList.getSelectionModel().getSelectedItem();
 
@@ -227,6 +229,9 @@ public class SubjectAdminController implements Initializable {
                         selectedSubject.subjectCode = newSubjectCode;
                         selectedSubject.subjectName = newSubjectName;
 
+
+                        int selectedIndex = subjects.indexOf(selectedSubject);
+                        editData(null,selectedSubject,indexnum,selectedIndex);
                         // Refresh the ListView to reflect the changes
                         SubjectList.getItems().clear();  // Clear current items
                         for (Subject subject : subjects) {
@@ -259,12 +264,15 @@ public class SubjectAdminController implements Initializable {
     @FXML
     private void handleDeleteSubject(ActionEvent event) {
         // Get the selected subject from the ListView
+        int indexnum = 0;
         String selectedSubject = SubjectList.getSelectionModel().getSelectedItem();
 
         if (selectedSubject != null) {
             // Confirm deletion (Optional: use a dialog to confirm)
             boolean confirm = showConfirmationDialog("Are you sure you want to delete the subject: " + selectedSubject + "?");
             if (confirm) {
+
+
                 // Remove from the List<Subject>
                 removeSubjectFromList(selectedSubject);
 
@@ -281,6 +289,9 @@ public class SubjectAdminController implements Initializable {
         // Assuming subjects is a List<Subject>, find and remove the subject
         for (Subject s : subjects) {
             if (s.toString().equals(subject)) {
+                int indexnum = 0;
+                int selectedIndex = subjects.indexOf(s);
+                removeData(indexnum,selectedIndex);
                 subjects.remove(s);
                 break;
             }

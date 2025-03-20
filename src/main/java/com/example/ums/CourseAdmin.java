@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static com.example.ums.FileProcessing.loadData;
+
 public class CourseAdmin extends Application {
     @Override
     public void start(Stage stage) throws IOException {
@@ -18,7 +20,7 @@ public class CourseAdmin extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        loadData(); launch();
     }
 
 }
