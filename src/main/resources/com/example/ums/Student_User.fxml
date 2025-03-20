@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
 <VBox alignment="CENTER" maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ums.StudentUserController">
     <padding>
@@ -24,7 +28,60 @@
                   <MenuItem fx:id="eventButton" mnemonicParsing="false" onAction="#handleButtonActionEvent" text="Event Management" />
               </items>
             </MenuButton>
-            <Button layoutX="557.0" layoutY="305.0" mnemonicParsing="false" text="Student User" />
+            <Pane layoutX="97.0" layoutY="159.0" prefHeight="507.0" prefWidth="1035.0">
+               <children>
+                  <Label layoutX="16.0" prefHeight="44.0" prefWidth="196.0" text="Student/ Faculty Name " />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff03" height="35.0" layoutY="4.0" stroke="BLACK" strokeType="INSIDE" width="187.0" />
+                  <TabPane layoutY="40.0" prefHeight="452.0" prefWidth="1035.0" tabClosingPolicy="UNAVAILABLE">
+                     <tabs>
+                        <Tab text="Student Info">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="14.0" prefHeight="44.0" prefWidth="240.0" text="Student Name info" />
+                                    <Label layoutX="14.0" layoutY="58.0" prefHeight="44.0" prefWidth="240.0" text="Student Address info" />
+                                    <Label layoutX="14.0" layoutY="102.0" prefHeight="44.0" prefWidth="240.0" text="Academic Level" />
+                                    <Label layoutX="14.0" layoutY="146.0" prefHeight="44.0" prefWidth="240.0" text="Current Semester" />
+                                    <Label fx:id="studentInfo" layoutX="134.0" layoutY="28.0" prefHeight="17.0" prefWidth="170.0" />
+                                    <Label fx:id="studentAddress" layoutX="139.0" layoutY="72.0" prefHeight="17.0" prefWidth="187.0" />
+                                    <Label fx:id="studentAcademicLevel" layoutX="139.0" layoutY="116.0" prefHeight="17.0" prefWidth="187.0" />
+                                    <Label fx:id="studentCurrentSemester" layoutX="139.0" layoutY="159.0" prefHeight="17.0" prefWidth="187.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Academic Records">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label layoutX="20.0" layoutY="31.0" prefHeight="17.0" prefWidth="51.0" text="Subject:" />
+                                    <Label fx:id="studentSubject" layoutX="71.0" layoutY="31.0" prefHeight="17.0" prefWidth="140.0" />
+                                    <Label fx:id="studentGrade" layoutX="183.0" layoutY="31.0" prefHeight="17.0" prefWidth="74.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Tuition">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                        <Tab text="Contact Info">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label layoutX="30.0" layoutY="64.0" prefHeight="17.0" prefWidth="92.0" text="Email" />
+                                    <Label layoutX="30.0" layoutY="117.0" text="Telephone" />
+                                    <Label fx:id="studentEmail" layoutX="219.0" layoutY="64.0" prefHeight="17.0" prefWidth="157.0" />
+                                    <Label fx:id="studentTelephone" layoutX="219.0" layoutY="117.0" prefHeight="17.0" prefWidth="118.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>
