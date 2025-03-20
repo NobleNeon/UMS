@@ -6,9 +6,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static com.example.ums.FileProcessing.students;
 
 public class StudentUserController {
 
@@ -20,21 +28,29 @@ public class StudentUserController {
     public MenuItem eventButton;
 
     @FXML
+    public Label studentInfo, studentAddress, studentAcademicLevel, studentCurrentSemester, studentSubject, studentGrade, studentEmail, studentTelephone;
+
+
+    @FXML
     protected void handleButtonActionDashboard(ActionEvent event) {
         switchToUserDashboardScene(event);
     }
+
     @FXML
     protected void handleButtonActionSubject(ActionEvent event) {
         switchToUserSubjectScene(event);
     }
+
     @FXML
     protected void handleButtonActionCourse(ActionEvent event) {
         switchToUserCourseScene(event);
     }
+
     @FXML
     protected void handleButtonActionFaculty(ActionEvent event) {
         switchToUserFacultyScene(event);
     }
+
     @FXML
     protected void handleButtonActionEvent(ActionEvent event) {
         switchToUserEventScene(event);
@@ -123,4 +139,28 @@ public class StudentUserController {
 
     public void handleButtonAction(ActionEvent actionEvent) {
     }
-}
+
+
+
+    @FXML
+    private void displayStudentProfile() {
+        Optional<Student> studentOptional = students.stream()
+                .filter(s -> s.getId().equalsIgnoreCase(LoginController.GlobalVariables.userId)) // Search by Student ID
+                .findFirst();
+
+        if (studentOptional.isPresent()) {
+            Student student = studentOptional.get();
+            studentInfo.setText(student.getName());
+            studentAddress.setText(student.getAddress());
+            studentAcademicLevel.setText(student.getAcademicLevel());
+            studentCurrentSemester.setText(student.getCurrentSemester());
+            studentSubject.setText(student.getSubject());
+            studentGrade.setText("Grade: " + student.getGrade());
+            studentEmail.setText(student.getEmail());
+            studentTelephone.setText(student.getTelephone());
+        } else {
+            System.out.println("Student not found!");
+        }
+        }
+    }
+

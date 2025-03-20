@@ -37,7 +37,7 @@ class Faculty {
 
 
 class Student {
-    String id, name, address, telephone, email, academicLevel, currentSemester, profilePhoto, subjectsRegistered, thesisTitle, progress, password;
+    String id, name, address, telephone, email, academicLevel, currentSemester, profilePhoto, subjectsRegistered, thesisTitle, progress, password, tuition;
 
     public Student(String id, String name, String address, String telephone, String email, String academicLevel, String currentSemester, String profilePhoto, String subjectsRegistered, String thesisTitle, String progress, String password) {
         this.id = id;
@@ -52,12 +52,13 @@ class Student {
         this.thesisTitle = thesisTitle;
         this.progress = progress;
         this.password = password;
+        this.tuition = tuition;
     }
 
     @Override
     public String toString() {
         return String.format("Student[ID=%s Name=%s, Address=%s, Telephone=%s, Email=%s, Academic Level=%s, Current Semester=%s, Profile Photo=%s, Subjects Registered=%s, Thesis Title=%s, Progress=%s]",
-                id, name, address, telephone, email, academicLevel, currentSemester, profilePhoto, subjectsRegistered, thesisTitle, progress);
+                id, name, address, telephone, email, academicLevel, currentSemester, profilePhoto, subjectsRegistered, thesisTitle, progress, tuition);
     }
 
     public String getName() {
@@ -90,6 +91,14 @@ class Student {
 
     public String getGrade() {
         return progress;
+    }
+
+    public String getTuition() {
+        return tuition;
+    }
+
+    public String getId() {
+        return id;
     }
 }
 
