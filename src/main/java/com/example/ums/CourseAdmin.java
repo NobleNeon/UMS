@@ -20,7 +20,7 @@ public class CourseAdmin extends Application {
     }
 
     public static void main(String[] args) {
-        loadData(); launch();
+         launch();
     }
 
 }
