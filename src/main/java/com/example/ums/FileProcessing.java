@@ -1,6 +1,7 @@
 package com.example.ums;
 
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.*;
 import java.util.*;
@@ -343,6 +344,7 @@ public class FileProcessing {
         try (FileInputStream file = new FileInputStream(new File("src/main/resources/UMS_Data.xlsx").getAbsolutePath());
              Workbook workbook = new XSSFWorkbook(file)) {
 
+
             faculties = processFile.parseFaculties(workbook.getSheetAt(3));
             students = processFile.parseStudents(workbook.getSheetAt(2));
             courses = processFile.parseCourses(workbook.getSheetAt(1));
@@ -354,4 +356,230 @@ public class FileProcessing {
             e.printStackTrace();
         }
     }
+
+    public static void addData(Course newCourse, Subject selectedSubject,Subject newSubject, int indexnum) {
+
+
+        try (FileInputStream file = new FileInputStream(new File("src/main/resources/UMS_Data.xlsx").getAbsolutePath());// Reading the workbook
+             Workbook workbook = new XSSFWorkbook(file)) {//creates a work book from the xlsx
+            XSSFSheet subjectdata = (XSSFSheet) workbook.getSheetAt(0);
+            XSSFSheet coursedata = (XSSFSheet) workbook.getSheetAt(1);
+            XSSFSheet studentdata = (XSSFSheet) workbook.getSheetAt(2);
+            XSSFSheet facultydata = (XSSFSheet) workbook.getSheetAt(3);
+            XSSFSheet eventdata = (XSSFSheet) workbook.getSheetAt(4);
+
+
+
+            switch (indexnum) {
+                case 0:
+                    subjectdata.createRow(subjects.indexOf(newSubject) + 1);//creates new row
+                    Row subjectdatarow = subjectdata.getRow(subjects.indexOf(newSubject) + 1);
+                    for (int cellcount = 0; cellcount <= 8; cellcount++) {
+                        Cell subjectdatacell = subjectdatarow.createCell(cellcount);
+                        if (cellcount == 0) {
+                            subjectdatacell.setCellValue(newSubject.subjectCode);
+                        }
+                        if (cellcount == 1) {
+                            subjectdatacell.setCellValue(newSubject.subjectName);
+                        }
+                    }
+                    break;
+                case 1:
+                    coursedata.createRow(courses.indexOf(newCourse) + 1);//creates new row
+                    Row coursedatarow = coursedata.getRow(courses.indexOf(newCourse) + 1);
+                    for (int cellcount = 0; cellcount <= 8; cellcount++) {
+                        Cell coursedatacell = coursedatarow.createCell(cellcount);
+                        if (cellcount == 0) {
+                            coursedatacell.setCellValue(newCourse.courseCode);
+                        }
+                        if (cellcount == 1) {
+                            coursedatacell.setCellValue(newCourse.courseName);
+                        }
+                        if (cellcount == 2) {
+                            coursedatacell.setCellValue(newCourse.sectionNumber);
+                        }
+                        if (cellcount == 3) {
+                            coursedatacell.setCellValue(newCourse.subjectCode);
+                        }
+                        if (cellcount == 4) {
+                            coursedatacell.setCellValue(newCourse.capacity);
+                        }
+                        if (cellcount == 5) {
+                            coursedatacell.setCellValue(newCourse.lectureTime);
+                        }
+                        if (cellcount == 6) {
+                            coursedatacell.setCellValue(newCourse.finalExamDateTime);
+                        }
+                        if (cellcount == 7) {
+                            coursedatacell.setCellValue(newCourse.location);
+                        }
+                        if (cellcount == 8) {
+                            coursedatacell.setCellValue(newCourse.teacherName);
+                        }
+                    }
+
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+            }
+
+
+//System.out.println(courses);
+
+            try {
+                FileOutputStream out = new FileOutputStream(new File("src/main/resources/UMS_Data.xlsx"));
+                workbook.write(out);// Writing the workbook
+                out.close();// Closing file output connections
+                System.out.println("src/main/resources/UMS_Data.xlsx written successfully on disk.");// Console message for successful execution of the program
+            }
+            // Catch block to handle exceptions
+            catch (Exception e) {// Display exceptions along with line number
+                e.printStackTrace();// using printStackTrace() method
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    };
+
+    public static void removeData(int indexnum,int selectedIndex) {
+        try (FileInputStream file = new FileInputStream(new File("src/main/resources/UMS_Data.xlsx").getAbsolutePath());// Reading the workbook
+             Workbook workbook = new XSSFWorkbook(file)) {//creates a work book from the xlsx
+            XSSFSheet subjectdata = (XSSFSheet) workbook.getSheetAt(0);
+            XSSFSheet coursedata = (XSSFSheet) workbook.getSheetAt(1);
+            XSSFSheet studentdata = (XSSFSheet) workbook.getSheetAt(2);
+            XSSFSheet facultydata = (XSSFSheet) workbook.getSheetAt(3);
+            XSSFSheet eventdata = (XSSFSheet) workbook.getSheetAt(4);
+            switch (indexnum) {
+                case 0:
+                    Row subjectdatarow = subjectdata.getRow(selectedIndex+1);
+                    subjectdata.removeRow(subjectdatarow);
+
+                    break;
+                case 1:
+                    Row coursedatarow = coursedata.getRow(selectedIndex+1);
+                    coursedata.removeRow(coursedatarow);
+
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+            }
+
+
+
+            try {
+                FileOutputStream out = new FileOutputStream(new File("src/main/resources/UMS_Data.xlsx"));
+                workbook.write(out);// Writing the workbook
+                out.close();// Closing file output connections
+                System.out.println("src/main/resources/UMS_Data.xlsx written successfully on disk.");// Console message for successful execution of the program
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    public static void editData(Course selectedCourse,Subject selectedSubject, int indexnum,int selectedIndex) {
+        try (FileInputStream file = new FileInputStream(new File("src/main/resources/UMS_Data.xlsx").getAbsolutePath());// Reading the workbook
+        Workbook workbook = new XSSFWorkbook(file)) {//creates a work book from the xlsx
+            XSSFSheet subjectdata = (XSSFSheet) workbook.getSheetAt(0);
+            XSSFSheet coursedata = (XSSFSheet) workbook.getSheetAt(1);
+            XSSFSheet studentdata = (XSSFSheet) workbook.getSheetAt(2);
+            XSSFSheet facultydata = (XSSFSheet) workbook.getSheetAt(3);
+            XSSFSheet eventdata = (XSSFSheet) workbook.getSheetAt(4);
+            switch (indexnum) {
+                case 0:
+                    Row subjectdataRow = subjectdata.getRow(subjects.indexOf(selectedSubject) + 1);
+                    for (int cellcount = 0; cellcount <= 8; cellcount++) {
+                        Cell subjectdatacell = subjectdataRow.getCell(cellcount);
+                        if (cellcount == 0) {
+                            subjectdatacell.setCellValue(selectedSubject.subjectCode);
+                        }
+                        if (cellcount == 1) {
+                            subjectdatacell.setCellValue(selectedSubject.subjectName);
+                        }
+                    }
+
+                    break;
+                case 1:
+
+                    Row coursedataRow = coursedata.getRow(courses.indexOf(selectedCourse) + 1);
+                    for (int cellcount = 0; cellcount <= 8; cellcount++) {
+                        Cell coursedatacell = coursedataRow.getCell(cellcount);
+                        if (cellcount == 0) {
+                            coursedatacell.setCellValue(selectedCourse.courseCode);
+                        }
+                        if (cellcount == 1) {
+                            coursedatacell.setCellValue(selectedCourse.courseName);
+                        }
+                        if (cellcount == 2) {
+                            coursedatacell.setCellValue(selectedCourse.sectionNumber);
+                        }
+                        if (cellcount == 3) {
+                            coursedatacell.setCellValue(selectedCourse.subjectCode);
+                        }
+                        if (cellcount == 4) {
+                            coursedatacell.setCellValue(selectedCourse.capacity);
+                        }
+                        if (cellcount == 5) {
+                            coursedatacell.setCellValue(selectedCourse.lectureTime);
+                        }
+                        if (cellcount == 6) {
+                            coursedatacell.setCellValue(selectedCourse.finalExamDateTime);
+                        }
+                        if (cellcount == 7) {
+                            coursedatacell.setCellValue(selectedCourse.location);
+                        }
+                        if (cellcount == 8) {
+                            coursedatacell.setCellValue(selectedCourse.teacherName);
+                        }
+                    }
+
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+            }
+            try {
+                FileOutputStream out = new FileOutputStream(new File("src/main/resources/UMS_Data.xlsx"));
+                workbook.write(out);// Writing the workbook
+                out.close();// Closing file output connections
+                System.out.println("src/main/resources/UMS_Data.xlsx written successfully on disk.");// Console message for successful execution of the program
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

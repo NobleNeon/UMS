@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static com.example.ums.FileProcessing.courses;
-import static com.example.ums.FileProcessing.subjects;
+import static com.example.ums.FileProcessing.*;
 
 public class CourseAdminController implements Initializable {
 
@@ -168,8 +167,12 @@ public class CourseAdminController implements Initializable {
 
         // Add to list and refresh UI
         courses.add(newCourse);
+        int indexnum = 1;
+        addData(newCourse,null,null,indexnum);
         refreshCourseList();
     }
+
+
 
     // Helper method to display a TextInputDialog
     private String getInput(String prompt) {
@@ -191,6 +194,7 @@ public class CourseAdminController implements Initializable {
 
     public void handleEditCourse(ActionEvent event) {
         // Get the selected course from the ListView
+        int indexnum = 1;
         int selectedIndex = CourseList.getSelectionModel().getSelectedIndex();
 
         if (selectedIndex == -1) {
@@ -223,6 +227,7 @@ public class CourseAdminController implements Initializable {
         selectedCourse.setLocation(newLocation);
         selectedCourse.setTeacherName(newTeacherName);
 
+        editData(selectedCourse,null,indexnum,selectedIndex);
         // Refresh the list to reflect changes
         refreshCourseList();
     }
@@ -258,6 +263,11 @@ public class CourseAdminController implements Initializable {
         Optional<ButtonType> result = confirmation.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             // Remove from list and refresh UI
+            int indexnum = 1;
+            removeData(indexnum,selectedIndex);
+
+
+
             courses.remove(selectedIndex);
             refreshCourseList();
         }
