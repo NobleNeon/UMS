@@ -15,6 +15,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.scene.control.Button;
+import java.io.File;
 
 import static com.example.ums.FileProcessing.students;
 
@@ -29,6 +34,9 @@ public class StudentUserController {
 
     @FXML
     public Label studentInfo, studentAddress, studentAcademicLevel, studentCurrentSemester, studentSubject, studentGrade, studentEmail, studentTelephone;
+
+    @FXML
+    private ImageView imageView;
 
 
     @FXML
@@ -143,7 +151,7 @@ public class StudentUserController {
 
 
     @FXML
-    private void displayStudentProfile() {
+    public void displayStudentProfile() {
         Optional<Student> studentOptional = students.stream()
                 .filter(s -> s.getId().equalsIgnoreCase(LoginController.GlobalVariables.userId)) // Search by Student ID
                 .findFirst();
@@ -158,9 +166,144 @@ public class StudentUserController {
             studentGrade.setText("Grade: " + student.getGrade());
             studentEmail.setText(student.getEmail());
             studentTelephone.setText(student.getTelephone());
+            String profilePicturePath = student.getprofilePicturePath();
+            if (profilePicturePath != null && !profilePicturePath.isEmpty()) {
+                File file = new File(profilePicturePath);
+                if (file.exists()) {
+                    Image image = new Image(file.toURI().toString());
+                    imageView.setImage(image); // Set to ImageView
+                } else {
+                    System.err.println("Profile picture file not found: " + profilePicturePath);
+                }
+            } else {
+                System.out.println("No profile picture path found for student: " + LoginController.GlobalVariables.userId);
+            }
+
+
+            // Update labels with student information
+            studentInfo.setText(student.getName());
+            studentAddress.setText(student.getAddress());
+            studentAcademicLevel.setText(student.getAcademicLevel());
+            studentCurrentSemester.setText(student.getCurrentSemester());
         } else {
-            System.out.println("Student not found!");
-        }
+            System.out.println("Student not found for ID: " + LoginController.GlobalVariables.userId);
         }
     }
+
+
+    @FXML
+    private void handleChangeProfilePicture(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select New Profile Picture");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        // Allow the user to select an image file
+        File selectedFile = fileChooser.showOpenDialog(imageView.getScene().getWindow());
+
+        if (selectedFile != null) {
+            // Update the ImageView with the selected image
+            Image image = new Image(selectedFile.toURI().toString());
+            imageView.setImage(image);
+
+            // Save the new profile picture path for the logged-in student
+            Optional<Student> studentOptional = students.stream()
+                    .filter(student -> student.getId().equals(LoginController.GlobalVariables.userId))
+                    .findFirst();
+
+            if (studentOptional.isPresent()) {
+                Student student = studentOptional.get();
+
+                // Save the image path to a 'profile_pictures' directory
+                File targetDirectory = new File("profile_pictures");
+                if (!targetDirectory.exists()) {
+                    targetDirectory.mkdir(); // Create directory if not present
+                }
+
+                // Copy the file to the target directory with the student's ID as the filename
+                File targetFile = new File(targetDirectory, student.getId() + ".png");
+
+                try {
+                    java.nio.file.Files.copy(
+                            selectedFile.toPath(),
+                            targetFile.toPath(),
+                            java.nio.file.StandardCopyOption.REPLACE_EXISTING
+                    );
+                    student.setProfilePicturePath(targetFile.getAbsolutePath());
+                    FileProcessing.saveStudents(students);
+
+                    System.out.println("Profile picture updated and saved: " + targetFile.getAbsolutePath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    @FXML
+    private void handleSetProfilePicture(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Profile Picture");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        // User selects the file
+        File selectedFile = fileChooser.showOpenDialog(imageView.getScene().getWindow());
+
+        if (selectedFile != null) {
+            // Display the selected image in the ImageView
+            Image image = new Image(selectedFile.toURI().toString());
+            imageView.setImage(image);
+
+            // Retrieve the current student (replace with the correct logic for the logged-in student)
+            Optional<Student> studentOptional = students.stream()
+                    .filter(student -> student.getId().equals(LoginController.GlobalVariables.userId))
+                    .findFirst();
+
+            if (studentOptional.isPresent()) {
+                Student student = studentOptional.get();
+
+                // Save the image to the "profile_pictures" directory
+                File targetDirectory = new File("profile_pictures");
+                if (!targetDirectory.exists()) {
+                    targetDirectory.mkdir(); // Create the directory if it doesn't exist
+                }
+
+                // Use the student's ID to name the image file
+                File targetFile = new File(targetDirectory, student.getId() + ".png");
+
+                try {
+                    // Copy the selected file to the target directory
+                    java.nio.file.Files.copy(
+                            selectedFile.toPath(),
+                            targetFile.toPath(),
+                            java.nio.file.StandardCopyOption.REPLACE_EXISTING
+                    );
+
+                    // Update the student's profile picture path
+                    student.setProfilePicturePath(targetFile.getAbsolutePath());
+
+                    // Persist the updated student data
+                    FileProcessing.saveStudents(students);
+
+                    System.out.println("Profile picture set and saved: " + student.getprofilePicturePath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.err.println("Logged-in student not found.");
+            }
+        } else {
+            System.out.println("No file was selected.");
+        }
+    }
+
+
+}
+
+
+
+
+
 

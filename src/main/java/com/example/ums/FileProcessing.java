@@ -5,6 +5,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.*;
 import java.util.*;
+import java.io.Serializable;
 
 class Faculty {
     String facultyID, name, degree, researchInterest, email, officeLocation, coursesOffered, password, role;
@@ -37,8 +38,9 @@ class Faculty {
 }
 
 
-class Student {
-    String id, name, address, telephone, email, academicLevel, currentSemester, profilePhoto, subjectsRegistered, thesisTitle, progress, password, tuition;
+class Student implements Serializable{
+    private static final long serialVersionUID = 1L;
+    String id, name, address, telephone, email, academicLevel, currentSemester, profilePhoto, subjectsRegistered, thesisTitle, progress, password, tuition, profilePicturePath;
 
     public Student(String id, String name, String address, String telephone, String email, String academicLevel, String currentSemester, String profilePhoto, String subjectsRegistered, String thesisTitle, String progress, String password) {
         this.id = id;
@@ -58,7 +60,7 @@ class Student {
 
     @Override
     public String toString() {
-        return String.format("Student[ID=%s Name=%s, Address=%s, Telephone=%s, Email=%s, Academic Level=%s, Current Semester=%s, Profile Photo=%s, Subjects Registered=%s, Thesis Title=%s, Progress=%s]",
+        return String.format("Student[ID=%s Name=%s, Address=%s, Telephone=%s, Email=%s, Academic Level=%s, Current Semester=%s, Profile Photo=%s, Subjects Registered=%s, Thesis Title=%s, Progress=%s, Tuition=%s]",
                 id, name, address, telephone, email, academicLevel, currentSemester, profilePhoto, subjectsRegistered, thesisTitle, progress, tuition);
     }
 
@@ -100,6 +102,14 @@ class Student {
 
     public String getId() {
         return id;
+    }
+
+    public void setProfilePicturePath(String profilePicturePath){
+        this.profilePicturePath = profilePicturePath;
+    }
+
+    public String getprofilePicturePath() {
+        return profilePicturePath;
     }
 }
 
@@ -339,6 +349,27 @@ public class FileProcessing {
     public static List<Course> courses = new ArrayList<>();
     public static List<Event> events = new ArrayList<>();
     public static List<Subject> subjects = new ArrayList<>();
+
+
+    public static void saveStudents(List<Student> students) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("students_data.ser"))) {
+            oos.writeObject(students); // Serialize the entire list of students
+            System.out.println("Students data saved successfully.");
+        } catch (IOException e) {
+            System.err.println("Error while saving students data: " + e.getMessage());
+        }
+    }
+    @SuppressWarnings("unchecked")
+    public static void loadStudents() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("students_data.ser"))) {
+            students = (List<Student>) ois.readObject(); // Deserialize the list of students
+            System.out.println("Students data loaded successfully.");
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error while loading students data: " + e.getMessage());
+        }
+    }
+
+
 
     public static void loadData() {
         try (FileInputStream file = new FileInputStream(new File("src/main/resources/UMS_Data.xlsx").getAbsolutePath());

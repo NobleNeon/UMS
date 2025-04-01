@@ -19,6 +19,7 @@ public class LoginScreen extends Application {
 
     public static void main(String[] args) {
         FileProcessing.loadData();
+        FileProcessing.loadStudents();
         launch();
     }
 }

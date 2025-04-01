@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox alignment="CENTER" maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ums.StudentUserController">
@@ -16,7 +17,7 @@
                         <MenuItem fx:id="dashboardButton" mnemonicParsing="false" onAction="#handleButtonActionDashboard" text="Dashboard" />
                         <MenuItem fx:id="subjectButton" mnemonicParsing="false" onAction="#handleButtonActionSubject" text="Subject Management" />
                         <MenuItem fx:id="courseButton" mnemonicParsing="false" onAction="#handleButtonActionCourse" text="Course Management" />
-                        <MenuItem fx:id="studentButton" mnemonicParsing="false" onAction="#displayStudentProfile" text="Student Management" />
+                        <MenuItem fx:id="studentButton" mnemonicParsing="false" text="Student Management" />
                         <MenuItem fx:id="facultyButton" mnemonicParsing="false" onAction="#handleButtonActionFaculty" text="Faculty Management" />
                         <MenuItem fx:id="eventButton" mnemonicParsing="false" onAction="#handleButtonActionEvent" text="Event Management" />
                     </items>
@@ -69,8 +70,11 @@
                                 </Tab>
                             </tabs>
                         </TabPane>
+                  <Button layoutY="14.0" mnemonicParsing="false" onAction="#displayStudentProfile" text="Button" />
+                  <Button layoutX="499.0" layoutY="-12.0" mnemonicParsing="false" text="Select Image" onAction="#handleSetProfilePicture" />
                     </children>
                 </Pane>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="394.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" fx:id="imageView"/>
             </children>
         </Pane>
     </children>
