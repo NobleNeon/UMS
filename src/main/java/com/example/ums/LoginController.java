@@ -28,6 +28,8 @@ public class LoginController {
 
     public class GlobalVariables {
         public static String userId;
+        public static Faculty currentFaculty;
+        public static Student currentStudent;
     }
 
     @FXML
@@ -41,9 +43,16 @@ public class LoginController {
         if (isValidUser(GlobalVariables.userId, password)) {
             // Find the faculty member with the given ID
             Faculty loggedInFaculty = null;
+            Student loggedInStudent = null;
             for (Faculty faculty : faculties) {
                 if (faculty.getId().equals(GlobalVariables.userId)) {
                     loggedInFaculty = faculty;
+                    break;
+                }
+            }
+            for (Student student : students) {
+                if (student.getId().equals(GlobalVariables.userId)) {
+                    loggedInStudent = student;
                     break;
                 }
             }
@@ -55,6 +64,14 @@ public class LoginController {
             } else {
                 isAdmin = false;
                 System.out.println("User logged in");
+                if (GlobalVariables.userId.startsWith("F")){
+                    GlobalVariables.currentFaculty = loggedInFaculty;
+                    System.out.println("Current faculty: " + GlobalVariables.currentFaculty);
+                }
+                else{
+                    GlobalVariables.currentStudent = loggedInStudent;
+                    System.out.println("Current student: " + GlobalVariables.currentStudent);
+                }
                 switchToUserScene(event);
             }
 
