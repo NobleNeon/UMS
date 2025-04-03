@@ -128,13 +128,26 @@ class Student implements Serializable{
     public String getprofilePicturePath() {
         return profilePicturePath;
     }
+
+    public boolean isEnrolledIn(String courseName) {
+        if (subjectsRegistered == null || subjectsRegistered.isEmpty()) {
+            return false;
+        }
+        String[] courses = subjectsRegistered.split(",\\s*");
+        for (String course : courses) {
+            if (course.equalsIgnoreCase(courseName.trim())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 
 class Course {
     String courseCode, courseName, sectionNumber, subjectCode, capacity, lectureTime, finalExamDateTime, location, teacherName;
 
-    public Course(String courseCode, String courseName, String sectionNumber, String subjectCode, String capacity, String lectureTime, String finalExamDateTime, String location, String teacherName) {
+    public Course(String courseCode, String courseName, String subjectCode, String sectionNumber, String capacity, String lectureTime, String finalExamDateTime, String location, String teacherName) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.sectionNumber = sectionNumber;

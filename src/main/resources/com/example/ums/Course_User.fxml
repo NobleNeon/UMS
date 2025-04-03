@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
@@ -37,6 +38,7 @@
                   <Image url="@../../../../../../../../Downloads/20181011002957_97_mascotOrig.png" />
                </image>
             </ImageView>
+            <Button fx:id="LoadStudentsButton" layoutX="631.0" layoutY="70.0" mnemonicParsing="false" onAction="#LoadStudents" text="Load Students" />
          </children>
       </Pane>
    </children>
