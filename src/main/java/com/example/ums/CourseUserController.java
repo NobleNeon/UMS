@@ -211,7 +211,8 @@ public class CourseUserController implements Initializable {
             content.append("No students are enrolled in this course.");
         } else {
             for (Student student : enrolledStudents) {
-                content.append(student.getName()).append("\n"); // Add student name to content
+                content.append("Name: " + student.getName() + " ");
+                content.append("ID: " + student.getId());// Add student name to content
             }
         }
 
