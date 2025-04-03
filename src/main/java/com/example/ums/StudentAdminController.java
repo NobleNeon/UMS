@@ -35,7 +35,7 @@ public class StudentAdminController {
     // TextField for student name search and other labels for student info display
     @FXML
     public TextField studentName;
-    public Label studentInfo, studentAddress, studentAcademicLevel, studentCurrentSemester, studentSubject, studentGrade, studentEmail, studentTelephone;
+    public Label studentInfo, studentAddress, studentAcademicLevel, studentCurrentSemester, studentSubject, studentGrade, studentEmail, studentTelephone, studentTuition;
 
     // ListView for showing student name suggestions
     @FXML
@@ -184,6 +184,7 @@ public class StudentAdminController {
             studentGrade.setText("Grade: " + student.getGrade());
             studentEmail.setText(student.getEmail());
             studentTelephone.setText(student.getTelephone());
+            studentTuition.setText(student.getTuition());
         } else {
             studentInfo.setText("Student not found");
             studentAddress.setText("");
