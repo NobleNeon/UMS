@@ -72,12 +72,12 @@
             </TabPane>
             <ImageView fitHeight="82.0" fitWidth="228.0" layoutX="527.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../Downloads/University_of_Guelph_logo.svg.png" />
+                  <Image url="@University_of_Guelph_logo.svg.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="122.0" fitWidth="253.0" layoutX="1029.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../Downloads/20181011002957_97_mascotOrig.png" />
+                  <Image url="@20181011002957_97_mascotOrig.png" />
                </image>
             </ImageView>
          </children>

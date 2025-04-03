@@ -29,12 +29,12 @@
              <ListView fx:id="CourseList" layoutX="160.0" layoutY="95.0" prefHeight="491.0" prefWidth="920.0" style="-fx-background-color: #d4aea3;" />
             <ImageView fitHeight="98.0" fitWidth="279.0" layoutX="481.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../Downloads/University_of_Guelph_logo.svg.png" />
+                  <Image url="@University_of_Guelph_logo.svg.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="100.0" fitWidth="259.0" layoutX="1028.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../Downloads/20181011002957_97_mascotOrig.png" />
+                  <Image url="@20181011002957_97_mascotOrig.png" />
                </image>
             </ImageView>
          </children>

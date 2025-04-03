@@ -85,12 +85,12 @@
             <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="394.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fitHeight="82.0" fitWidth="239.0" layoutX="521.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../Downloads/University_of_Guelph_logo.svg.png" />
+                  <Image url="@University_of_Guelph_logo.svg.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="130.0" fitWidth="247.0" layoutX="1034.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../Downloads/20181011002957_97_mascotOrig.png" />
+                  <Image url="@20181011002957_97_mascotOrig.png" />
                </image>
             </ImageView>
             </children>
