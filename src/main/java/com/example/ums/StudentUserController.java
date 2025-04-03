@@ -218,12 +218,13 @@ public class StudentUserController {
 
                 // Save the image to the "profile_pictures" directory
                 File targetDirectory = new File("profile_pictures");
+                String absolutePath = targetDirectory.getAbsolutePath();
                 if (!targetDirectory.exists()) {
                     targetDirectory.mkdir(); // Create the directory if it doesn't exist
                 }
 
                 // Use the student's ID to name the image file
-                File targetFile = new File(targetDirectory, student.getId() + ".png");
+                File targetFile = new File(absolutePath, student.getId() + ".png");
 
                 try {
                     // Copy the selected file to the target directory
@@ -235,6 +236,7 @@ public class StudentUserController {
 
                     // Update the student's profile picture path
                     student.setProfilePicturePath(targetFile.getAbsolutePath());
+
 
                     // Persist the updated student data
                     FileProcessing.saveStudents(students);
