@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -13,9 +14,9 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
    <children>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1240.0">
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="722.0" prefWidth="1281.0" style="-fx-background-color: #c76244;">
          <children>
-            <MenuButton layoutX="7.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Menus">
+            <MenuButton layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Menus">
               <items>
                 <MenuItem fx:id="dashboardButton" mnemonicParsing="false" onAction="#handleButtonActionDashboard" text="Dashboard" />
                   <MenuItem fx:id="subjectButton" mnemonicParsing="false" text="Subject Management" />
@@ -25,7 +26,17 @@
                   <MenuItem fx:id="eventButton" mnemonicParsing="false" onAction="#handleButtonActionEvent" text="Event Management" />
               </items>
             </MenuButton>
-             <ListView fx:id="SubjectList" layoutX="160.0" layoutY="95.0" prefHeight="491.0" prefWidth="920.0" />
+             <ListView fx:id="SubjectList" layoutX="181.0" layoutY="116.0" prefHeight="491.0" prefWidth="920.0" style="-fx-background-color: #d4aea3;" />
+            <ImageView fitHeight="83.0" fitWidth="239.0" layoutX="521.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../Downloads/University_of_Guelph_logo.svg.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="97.0" fitWidth="239.0" layoutX="1042.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../Downloads/20181011002957_97_mascotOrig.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

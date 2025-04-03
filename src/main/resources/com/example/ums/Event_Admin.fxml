@@ -7,6 +7,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -17,7 +19,7 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
    <children>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1240.0">
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.0" prefWidth="1281.0" style="-fx-background-color: #c76244;">
          <children>
             <MenuButton layoutX="7.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Menus">
               <items>
@@ -29,17 +31,17 @@
                   <MenuItem fx:id="eventButton" mnemonicParsing="false" text="Event Management" />
               </items>
             </MenuButton>
-            <Label layoutX="546.0" layoutY="66.0" prefHeight="28.0" prefWidth="149.0" text="    Events River">
+            <Label layoutX="550.0" layoutY="110.0" prefHeight="28.0" prefWidth="180.0" text="    Events River">
                <font>
-                  <Font size="19.0" />
+                  <Font name="Times New Roman" size="24.0" />
                </font>
             </Label>
-            <ScrollPane layoutX="239.0" layoutY="94.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="99.0" prefWidth="763.0">
+            <ScrollPane layoutX="259.0" layoutY="138.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="99.0" prefWidth="763.0">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
                </content>
             </ScrollPane>
-            <TableView layoutX="239.0" layoutY="227.0" prefHeight="340.0" prefWidth="763.0">
+            <TableView layoutX="259.0" layoutY="271.0" prefHeight="340.0" prefWidth="763.0" style="-fx-background-color: #d4aea3;">
               <columns>
                 <TableColumn prefWidth="75.0" text="Sunday" />
                 <TableColumn prefWidth="75.0" text="Monday" />
@@ -50,6 +52,16 @@
                   <TableColumn prefWidth="71.0" text="Saturday" />
               </columns>
             </TableView>
+            <ImageView fitHeight="112.0" fitWidth="252.0" layoutX="515.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../Downloads/University_of_Guelph_logo.svg.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="127.0" fitWidth="278.0" layoutX="1003.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../Downloads/20181011002957_97_mascotOrig.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

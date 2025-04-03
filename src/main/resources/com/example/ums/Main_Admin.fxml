@@ -5,6 +5,10 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -15,7 +19,7 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
    <children>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1240.0">
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.0" prefWidth="1282.0" style="-fx-background-color: #c76244;">
          <children>
             <MenuButton layoutX="7.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Menus">
               <items>
@@ -27,16 +31,55 @@
                   <MenuItem fx:id="eventButton" mnemonicParsing="false" onAction="#handleButtonActionEvent" text="Event Management" />
               </items>
             </MenuButton>
-            <Label layoutX="546.0" layoutY="65.0" prefHeight="28.0" prefWidth="149.0" text="    Events River">
+            <Label layoutX="555.0" layoutY="99.0" prefHeight="28.0" prefWidth="174.0" text="    Events River">
                <font>
-                  <Font size="19.0" />
+                  <Font name="Times New Roman" size="24.0" />
                </font>
             </Label>
-            <ScrollPane layoutX="239.0" layoutY="93.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="99.0" prefWidth="763.0">
+            <ScrollPane layoutX="260.0" layoutY="128.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="99.0" prefWidth="763.0">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
               </content>
             </ScrollPane>
+            <TabPane layoutX="260.0" layoutY="313.0" prefHeight="318.0" prefWidth="763.0" style="-fx-background-color: #d4aea3;" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Subjects">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                <Tab text="Courses">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                  <Tab text="Students">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Faculty">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Events">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <ImageView fitHeight="82.0" fitWidth="228.0" layoutX="527.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../Downloads/University_of_Guelph_logo.svg.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="122.0" fitWidth="253.0" layoutX="1029.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../Downloads/20181011002957_97_mascotOrig.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>
