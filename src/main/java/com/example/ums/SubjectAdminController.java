@@ -231,7 +231,7 @@ public class SubjectAdminController implements Initializable {
 
 
                         int selectedIndex = subjects.indexOf(selectedSubject);
-                        editData(null,selectedSubject,indexnum,selectedIndex);
+                        editData(null,selectedSubject,null,indexnum,selectedIndex);
                         // Refresh the ListView to reflect the changes
                         SubjectList.getItems().clear();  // Clear current items
                         for (Subject subject : subjects) {

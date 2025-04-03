@@ -40,7 +40,20 @@ class Faculty {
 
 class Student implements Serializable{
     private static final long serialVersionUID = 1L;
-    String id, name, address, telephone, email, academicLevel, currentSemester, profilePhoto, subjectsRegistered, thesisTitle, progress, password, tuition, profilePicturePath;
+    String id;
+    String name;
+    String address;
+    String telephone;
+    String email;
+    String academicLevel;
+    String currentSemester;
+    String profilePhoto;
+    String subjectsRegistered;
+    String thesisTitle;
+    String progress;
+    String password;
+    String tuition;
+    String profilePicturePath;
 
     public Student(String id, String name, String address, String telephone, String email, String academicLevel, String currentSemester, String profilePhoto, String subjectsRegistered, String thesisTitle, String progress, String password) {
         this.id = id;
@@ -55,7 +68,6 @@ class Student implements Serializable{
         this.thesisTitle = thesisTitle;
         this.progress = progress;
         this.password = password;
-        this.tuition = tuition;
     }
 
     @Override
@@ -97,6 +109,11 @@ class Student implements Serializable{
     }
 
     public String getTuition() {
+        if(Objects.equals(academicLevel, "Undergraduate")){
+            tuition = "$5000";
+        }else{
+            tuition = "$4000";
+        }
         return tuition;
     }
 
@@ -368,6 +385,15 @@ public class FileProcessing {
             System.err.println("Error while loading students data: " + e.getMessage());
         }
     }
+    @SuppressWarnings("unchecked")
+    public static void loadStudent() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("students.ser"))) {
+            students = (List<Student>) ois.readObject(); // Deserialize the list of students
+            System.out.println("Students data loaded successfully.");
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error while loading students data: " + e.getMessage());
+        }
+    }
 
 
 
@@ -530,9 +556,14 @@ public class FileProcessing {
 
 
     }
-    public static void editData(Course selectedCourse,Subject selectedSubject, int indexnum,int selectedIndex) {
-        try (FileInputStream file = new FileInputStream(new File("src/main/resources/UMS_Data.xlsx").getAbsolutePath());// Reading the workbook
-        Workbook workbook = new XSSFWorkbook(file)) {//creates a work book from the xlsx
+    public static void editData(Course selectedCourse, Subject selectedSubject, Student selectedStudent, int indexnum, int selectedIndex) {
+        String filePath = "src/main/resources/UMS_Data.xlsx";
+        File excelFile = new File(filePath);
+
+        // First read the file
+        try (FileInputStream fileIn = new FileInputStream(excelFile)) {
+            Workbook workbook = new XSSFWorkbook(fileIn);
+//creates a work book from the xlsx
             XSSFSheet subjectdata = (XSSFSheet) workbook.getSheetAt(0);
             XSSFSheet coursedata = (XSSFSheet) workbook.getSheetAt(1);
             XSSFSheet studentdata = (XSSFSheet) workbook.getSheetAt(2);
@@ -589,6 +620,43 @@ public class FileProcessing {
 
                     break;
                 case 2:
+                    Row studentdataRow = studentdata.getRow(students.indexOf(selectedStudent) + 1);
+                    for (int cellcount = 0; cellcount <= 11; cellcount++) {
+                        Cell studentdatacell = studentdataRow.getCell(cellcount);
+                        if (cellcount == 0) {
+                            studentdatacell.setCellValue(selectedStudent.id);
+                        }
+                        if (cellcount == 1) {
+                            studentdatacell.setCellValue(selectedStudent.name);
+                        }
+                        if (cellcount == 2) {
+                            studentdatacell.setCellValue(selectedStudent.address);
+                        }
+                        if (cellcount == 3) {
+                            studentdatacell.setCellValue(selectedStudent.telephone);
+                        }
+                        if (cellcount == 4) {
+                            studentdatacell.setCellValue(selectedStudent.email);
+                        }
+                        if (cellcount == 5) {
+                            studentdatacell.setCellValue(selectedStudent.academicLevel);
+                        }
+                        if (cellcount == 6) {
+                            studentdatacell.setCellValue(selectedStudent.currentSemester);
+                        }
+                        if (cellcount == 8) {
+                            studentdatacell.setCellValue(selectedStudent.subjectsRegistered);
+                        }
+                        if (cellcount == 9) {
+                            studentdatacell.setCellValue(selectedStudent.thesisTitle);
+                        }
+                        if (cellcount == 10) {
+                            studentdatacell.setCellValue(selectedStudent.progress);
+                        }
+                        if (cellcount == 11) {
+                            studentdatacell.setCellValue(selectedStudent.password);
+                        }
+                    }
 
                     break;
                 case 3:
@@ -598,18 +666,52 @@ public class FileProcessing {
 
                     break;
             }
-            try {
-                FileOutputStream out = new FileOutputStream(new File("src/main/resources/UMS_Data.xlsx"));
-                workbook.write(out);// Writing the workbook
-                out.close();// Closing file output connections
-                System.out.println("src/main/resources/UMS_Data.xlsx written successfully on disk.");// Console message for successful execution of the program
-            } catch (IOException e) {
-                e.printStackTrace();
+            try (FileOutputStream fileOut = new FileOutputStream(excelFile)) {
+                workbook.write(fileOut);
+                System.out.println("Excel file updated successfully at: " + excelFile.getAbsolutePath());
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+
         } catch (IOException e) {
+            System.err.println("Error updating Excel file: " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+    /**
+     * Serializes the list of students to a file
+     */
+    public static void serializeStudents() {
+        try (ObjectOutputStream out = new ObjectOutputStream(
+                new FileOutputStream("students.ser"))) {
+            out.writeObject(students);
+            System.out.println("Students successfully serialized to students.ser");
+        } catch (IOException e) {
+            System.err.println("Error serializing students: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Deserializes the list of students from a file
+     * @return true if deserialization was successful, false otherwise
+     */
+    public static boolean deserializeStudents() {
+        File file = new File("students.ser");
+        if (!file.exists()) {
+            System.out.println("Serialized students file not found");
+            return false;
+        }
+
+        try (ObjectInputStream in = new ObjectInputStream(
+                new FileInputStream(file))) {
+            @SuppressWarnings("unchecked")
+            List<Student> loadedStudents = (List<Student>) in.readObject();
+            students = loadedStudents;
+            System.out.println("Successfully loaded " + students.size() + " students from serialized file");
+            return true;
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error deserializing students: " + e.getMessage());
+            e.printStackTrace();
+            return false;
         }
     }
 
