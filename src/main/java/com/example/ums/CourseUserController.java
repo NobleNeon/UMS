@@ -143,7 +143,15 @@ public class CourseUserController implements Initializable {
         ArrayList<String> courseList = new ArrayList<>();
 
         if (currentStudent != null) {
-          courseList.addAll(splitString(currentStudent.subjectsRegistered));
+          List<String> subjectsStudent = splitString(currentStudent.subjectsRegistered);
+          System.out.println(subjectsStudent);
+          for (String subject : subjectsStudent) {
+              for (Course course : courses) {
+                  if (subject.equals(course.getSubjectCode())) {
+                      courseList.add(course.toString());
+                  }
+              }
+          }
           LoadStudentsButton.setVisible(false);
         }
         else{
