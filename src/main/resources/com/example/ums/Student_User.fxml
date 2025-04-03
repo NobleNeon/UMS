@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ums.StudentUserController">
+<VBox alignment="CENTER" maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ums.StudentUserController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <children>
-        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1240.0">
+        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="722.0" prefWidth="1281.0" style="-fx-background-color: #c76244;">
             <children>
-                <MenuButton layoutX="7.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Menus">
+                <MenuButton layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Menus">
                     <items>
                         <MenuItem fx:id="dashboardButton" mnemonicParsing="false" onAction="#handleButtonActionDashboard" text="Dashboard" />
                         <MenuItem fx:id="subjectButton" mnemonicParsing="false" onAction="#handleButtonActionSubject" text="Subject Management" />
@@ -28,7 +36,7 @@
                             <tabs>
                                 <Tab text="Student Info">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #d4aea3;">
                                             <children>
                                                 <Label layoutX="14.0" layoutY="14.0" prefHeight="44.0" prefWidth="240.0" text="Student Name info" />
                                                 <Label layoutX="14.0" layoutY="58.0" prefHeight="44.0" prefWidth="240.0" text="Student Address info" />
@@ -54,11 +62,7 @@
                                 </Tab>
                                 <Tab text="Tuition">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <Label layoutX="23.0" layoutY="53.0" text="Tuition" />
-                                    <Label layoutX="103.0" layoutY="53.0" fx:id="studentTuition"/>
-                                 </children></AnchorPane>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                     </content>
                                 </Tab>
                                 <Tab text="Contact Info">
@@ -79,6 +83,16 @@
                     </children>
                 </Pane>
             <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="394.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="82.0" fitWidth="239.0" layoutX="521.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../Downloads/University_of_Guelph_logo.svg.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="130.0" fitWidth="247.0" layoutX="1034.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../Downloads/20181011002957_97_mascotOrig.png" />
+               </image>
+            </ImageView>
             </children>
         </Pane>
     </children>
