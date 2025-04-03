@@ -28,7 +28,7 @@
                   <MenuItem fx:id="eventButton" mnemonicParsing="false" text="Event Management" />
               </items>
             </MenuButton>
-            <FlowPane fx:id="calendar" layoutX="70.0" layoutY="175.0" prefHeight="425.0" prefWidth="1100.0" />
+            <FlowPane fx:id="calendar" layoutX="32.0" layoutY="176.0" prefHeight="425.0" prefWidth="1176.0" />
             <HBox alignment="CENTER" layoutX="419.0" layoutY="90.0" prefHeight="53.0" prefWidth="402.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#previousMonth" prefHeight="68.0" prefWidth="46.0" text="&lt;-" />
