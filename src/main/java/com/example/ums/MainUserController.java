@@ -5,10 +5,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
+
+import static com.example.ums.FileProcessing.students;
 
 public class MainUserController {
 
@@ -19,6 +23,7 @@ public class MainUserController {
     public MenuItem facultyButton;
     public MenuItem eventButton;
 
+    public Label studentSubject, studentGrade;
     @FXML
     protected void handleButtonActionSubject(ActionEvent event) {
         switchToUserSubjectScene(event);
@@ -122,5 +127,18 @@ public class MainUserController {
 
 
     public void handleButtonAction(ActionEvent actionEvent) {
+    }
+
+    public void displayInfo(){
+        Optional<Student> studentOptional = students.stream()
+                .filter(s -> s.getId().equalsIgnoreCase(LoginController.GlobalVariables.userId)) // Search by Student ID
+                .findFirst();
+
+        if (studentOptional.isPresent()) {
+            Student student = studentOptional.get();
+            studentSubject.setText(student.getSubject());
+            studentGrade.setText("Grade: " + student.getGrade());
+
+        }
     }
 }
