@@ -25,6 +25,8 @@
             </MenuButton>
             <TextField fx:id="studentName" layoutX="151.0" layoutY="175.0" prefHeight="25.0" prefWidth="157.0" promptText="Student/Faculty Name" />
             <Button layoutX="100.0" layoutY="175.0" mnemonicParsing="false" onAction="#studentSearchRecommendations" text="Search" />
+             <ListView fx:id="studentSuggestionsList" layoutX="328.0" layoutY="112.0" prefHeight="126.0" prefWidth="200.0" style="-fx-background-color: #d4aea3;" />
+            <ImageView fitHeight="126.0" fitWidth="200.0" layoutX="528.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true" fx:id ="imageView"/>
             <Pane layoutX="100.0" layoutY="200.0" prefHeight="507.0" prefWidth="1035.0">
                <children>
                   <Label layoutX="16.0" prefHeight="44.0" prefWidth="196.0" text="Student/ Faculty Name " />
@@ -81,7 +83,6 @@
                   </TabPane>
                </children>
             </Pane>
-            <ListView fx:id="studentSuggestionsList" layoutX="344.0" layoutY="112.0" prefHeight="126.0" prefWidth="200.0" style="-fx-background-color: #d4aea3;" />
             <ImageView fitHeight="111.0" fitWidth="279.0" layoutX="501.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@University_of_Guelph_logo.svg.png" />
@@ -92,7 +93,7 @@
                   <Image url="@20181011002957_97_mascotOrig.png" />
                </image>
             </ImageView>
-            <Button layoutX="292.0" layoutY="215.0" mnemonicParsing="false" text="Edit" onAction="#handleEditStudent"/>
+            <Button layoutX="292.0" layoutY="215.0" mnemonicParsing="false" onAction="#handleEditStudent" text="Edit" />
          </children>
       </Pane>
    </children>

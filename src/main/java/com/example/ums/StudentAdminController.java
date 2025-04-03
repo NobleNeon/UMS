@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,6 +20,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import static com.example.ums.FileProcessing.*;
 
@@ -37,6 +41,8 @@ public class StudentAdminController {
     public TextField studentName;
     public Label studentInfo, studentAddress, studentAcademicLevel, studentCurrentSemester, studentSubject, studentGrade, studentEmail, studentTelephone, studentTuition;
 
+    @FXML
+    private ImageView imageView;
     // ListView for showing student name suggestions
     @FXML
     private ListView<String> studentSuggestionsList;
@@ -148,24 +154,42 @@ public class StudentAdminController {
         }
 
         // Filter students based on the search input
-        List<String> filteredStudentNames = students.stream()
+        List<String> filteredStudents = students.stream()
                 .map(Student::getName)
                 .filter(name -> name.toLowerCase().contains(searchText))
                 .collect(Collectors.toList());
 
-        // Show filtered names in the ListView and make sure it is visible
-        studentSuggestionsList.getItems().setAll(filteredStudentNames);
-        studentSuggestionsList.setVisible(true);
 
-        // Add a listener to handle selection of a student from the ListView
+
+        // Show filtered names in the ListView and make sure it is visible
+        studentSuggestionsList.getItems().clear();
+        studentSuggestionsList.getItems().addAll(filteredStudents);
+
+        // Ensure visibility
+        studentSuggestionsList.setVisible(!filteredStudents.isEmpty());
+
+    }
+    @FXML
+    public void initialize() {
+        // Initially hide the suggestions list
+        studentSuggestionsList.setVisible(false);
+
+        // Set up listener for text changes
+        studentName.textProperty().addListener((observable, oldValue, newValue) -> {
+            studentSearchRecommendations();
+        });
+
+        // Set up selection behavior for the suggestions list
         studentSuggestionsList.setOnMouseClicked(event -> {
-            String selectedStudentName = studentSuggestionsList.getSelectionModel().getSelectedItem();
-            if (selectedStudentName != null) {
-                displayStudentInfo(selectedStudentName);
-                studentSuggestionsList.setVisible(false); // Hide the list once a student is selected
+            String selectedStudent = studentSuggestionsList.getSelectionModel().getSelectedItem();
+            if (selectedStudent != null) {
+                studentName.setText(selectedStudent);
+                displayStudentInfo(selectedStudent);
+                studentSuggestionsList.setVisible(false);
             }
         });
     }
+
 
 
     // Method to display student information when a student is selected
@@ -185,6 +209,18 @@ public class StudentAdminController {
             studentEmail.setText(student.getEmail());
             studentTelephone.setText(student.getTelephone());
             studentTuition.setText(student.getTuition());
+            String profilePicturePath = student.getprofilePicturePath();
+            if (profilePicturePath != null && !profilePicturePath.isEmpty()) {
+                File file = new File(profilePicturePath);
+                if (file.exists()) {
+                    Image image = new Image(file.toURI().toString());
+                    imageView.setImage(image); // Set to ImageView
+                } else {
+                    System.err.println("Profile picture file not found: " + profilePicturePath);
+                }
+            } else {
+                System.out.println("No profile picture path found for student: " + LoginController.GlobalVariables.userId);
+            }
         } else {
             studentInfo.setText("Student not found");
             studentAddress.setText("");
