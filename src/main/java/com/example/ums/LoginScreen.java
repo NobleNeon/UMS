@@ -25,7 +25,7 @@ public class LoginScreen extends Application {
         }
         FileProcessing.loadData();
         FileProcessing.loadStudents();
-        FileProcessing.loadStudents();
+        FileProcessing.loadStudent();
         launch();
     }
 }

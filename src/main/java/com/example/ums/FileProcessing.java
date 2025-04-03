@@ -649,5 +649,27 @@ public class FileProcessing {
         }
     }
 
+    public static boolean deserializeStudents() {
+        File file = new File("students.ser");
+        if (!file.exists()) {
+            System.out.println("Serialized students file not found");
+            return false;
+        }
+
+        try (ObjectInputStream in = new ObjectInputStream(
+                new FileInputStream(file))) {
+            @SuppressWarnings("unchecked")
+            List<Student> loadedStudents = (List<Student>) in.readObject();
+            students = loadedStudents;
+            System.out.println("Successfully loaded " + students.size() + " students from serialized file");
+            return true;
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error deserializing students: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 
 }
