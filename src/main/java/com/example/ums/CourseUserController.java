@@ -6,16 +6,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static com.example.ums.FileProcessing.courses;
+import static com.example.ums.FileProcessing.students;
+import static com.example.ums.LoginController.GlobalVariables.currentFaculty;
+import static com.example.ums.LoginController.GlobalVariables.currentStudent;
 
 public class CourseUserController implements Initializable {
 
@@ -26,6 +31,7 @@ public class CourseUserController implements Initializable {
     public MenuItem facultyButton;
     public MenuItem eventButton;
     public ListView<String> CourseList;
+    public Button LoadStudentsButton;
 
     @FXML
     protected void handleButtonActionDashboard(ActionEvent event) {
@@ -136,12 +142,113 @@ public class CourseUserController implements Initializable {
         // Initialize the subjectList as a new ArrayList
         ArrayList<String> courseList = new ArrayList<>();
 
-        // Assuming 'subjects' is already defined and contains a list of subject objects
-        for (int i = 0; i < courses.size(); i++) {
-            courseList.add(courses.get(i).toString());  // Add each subject to the list
+        if (currentStudent != null) {
+          courseList.addAll(splitString(currentStudent.subjectsRegistered));
+          LoadStudentsButton.setVisible(false);
+        }
+        else{
+            courseList.addAll(splitString(currentFaculty.coursesOffered));
         }
 
         // Assuming 'subjectListView' is your ListView or appropriate control
         CourseList.getItems().addAll(courseList);
+    }
+
+    public void LoadStudents(ActionEvent event) {
+        List<Student> enrolledStudents = new ArrayList<>();
+
+        // Get the selected course name from the CourseList ListView
+        String selectedCourseName = CourseList.getSelectionModel().getSelectedItem();
+        if (selectedCourseName == null) {
+            return; // Exit if no course is selected
+        }
+
+        // Find the subject that corresponds to the selected course
+        String selectedCourseSubject = null;
+        for (Course course : courses) {
+            if (course.getCourseName().equalsIgnoreCase(selectedCourseName)) {
+                selectedCourseSubject = course.getSubjectCode();// Get the subject for the selected course
+                System.out.println(selectedCourseSubject);
+                System.out.println(course);
+                break;
+            }
+        }
+
+        // If no matching course is found, exit
+        if (selectedCourseSubject == null) {
+            return;
+        }
+
+        // Loop through all students to find those enrolled in the selected subject
+        for (Student student : students) {
+            // Get student's registered subjects (comma-separated)
+            String studentSubjects = student.getSubject();
+            if (studentSubjects == null || studentSubjects.isEmpty()) {
+                continue; // Skip if no subjects are registered
+            }
+
+            // Split subjects by comma and check if student is enrolled in the selected subject
+            String[] subjects = studentSubjects.split(",\\s*");
+            for (String subject : subjects) {
+                if (subject.equalsIgnoreCase(selectedCourseSubject)) {
+                    enrolledStudents.add(student); // Add student if subject matches
+                    break; // No need to check further subjects
+                }
+            }
+        }
+
+        // Build content string to display in the alert dialog
+        StringBuilder content = new StringBuilder();
+        if (enrolledStudents.isEmpty()) {
+            content.append("No students are enrolled in this course.");
+        } else {
+            for (Student student : enrolledStudents) {
+                content.append(student.getName()).append("\n"); // Add student name to content
+            }
+        }
+
+        // Create and configure the alert dialog
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Enrolled Students");
+        alert.setHeaderText("Students Enrolled in " + selectedCourseName);
+
+        // Use a TextArea to display the content for better formatting
+        TextArea textArea = new TextArea(content.toString());
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+
+        // Set the preferred size of the TextArea
+        textArea.setPrefSize(350, 150);
+
+        // Set the content of the alert dialog
+        alert.getDialogPane().setContent(textArea);
+
+        // Adjust the size of the alert dialog
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+
+        // Show the alert dialog
+        alert.showAndWait();
+    }
+
+    public static List<String> splitString(String input) {
+        List<String> resultList = new ArrayList<>();
+
+        if (input == null || input.isEmpty()) {
+            return resultList; // Return an empty list if the input is null or empty
+        }
+
+        // Split the input string by commas
+        String[] parts = input.split(",");
+
+        // Process each part
+        for (String part : parts) {
+            // Trim leading and trailing spaces but preserve spaces within words
+            String trimmedPart = part.trim();
+            if (!trimmedPart.isEmpty()) {
+                resultList.add(trimmedPart);
+            }
+        }
+
+        return resultList;
     }
 }
