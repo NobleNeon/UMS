@@ -18,6 +18,11 @@ public class LoginScreen extends Application {
     }
 
     public static void main(String[] args) {
+        if(FileProcessing.deserializeStudents()){
+            System.out.println("HI");
+        }else{
+            System.out.println("NO");
+        }
         FileProcessing.loadData();
         FileProcessing.loadStudents();
         FileProcessing.loadStudents();
