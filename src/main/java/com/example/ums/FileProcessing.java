@@ -27,14 +27,54 @@ class Faculty {
         return String.format("Faculty[ID=%s, Name=%s, Degree=%s, Research Interest=%s, Email=%s, Office=%s, Courses Offered=%s, Role=%s]",
                 facultyID, name, degree, researchInterest, email, officeLocation, coursesOffered, role);
     }
-
-    public Object getId() {
+    public String getName() {
+        return name;
+    }
+    public String getId() {
         return facultyID;
+    }
+    public String getDegree() {
+        return degree;
+    }
+    public String getresearchInterest() {
+        return researchInterest;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public String getOffice() {
+        return officeLocation;
+    }
+    public String getCoursesOffered() {
+        return coursesOffered;
     }
 
     public String getRole() {
         return role;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    };
+    public void setId(String facultyID) {
+        this.facultyID = facultyID;
+    };
+    public void setdegree(String degree) {
+        this.degree = degree;
+    };
+    public void setresearch(String researchInterest) {
+        this.researchInterest = researchInterest;
+    };
+    public void setemail(String email) {
+        this.email = email;
+    };
+
+    public void setofficeLoc(String officeLocation) {
+        this.officeLocation = officeLocation;
+    };
+    public void setcoursesOffered(String coursesOffered) {
+        this.coursesOffered = coursesOffered;
+    };
 }
 
 
@@ -465,7 +505,38 @@ public class FileProcessing {
 
                     break;
                 case 3:
-
+                    facultydata.createRow(faculties.indexOf(newFaculty) + 1);
+                    Row facultydatarow = facultydata.getRow(faculties.indexOf(newFaculty) + 1);
+                    for (int cellcount = 0; cellcount <= 8; cellcount++) {
+                        Cell facultydataCell = facultydatarow.createCell(cellcount);
+                        if (cellcount == 0) {
+                            facultydataCell.setCellValue(newFaculty.facultyID);
+                        }
+                        if (cellcount == 1) {
+                            facultydataCell.setCellValue(newFaculty.name);
+                        }
+                        if (cellcount == 2) {
+                            facultydataCell.setCellValue(newFaculty.degree);
+                        }
+                        if (cellcount == 3) {
+                            facultydataCell.setCellValue(newFaculty.researchInterest);
+                        }
+                        if (cellcount == 4) {
+                            facultydataCell.setCellValue(newFaculty.email);
+                        }
+                        if (cellcount == 5) {
+                            facultydataCell.setCellValue(newFaculty.officeLocation);
+                        }
+                        if (cellcount == 6) {
+                            facultydataCell.setCellValue(newFaculty.coursesOffered);
+                        }
+                        if (cellcount == 7) {
+                            facultydataCell.setCellValue(newFaculty.password);
+                        }
+                        if (cellcount == 8) {
+                            facultydataCell.setCellValue(newFaculty.role);
+                        }
+                    }
                     break;
                 case 4:
                     eventdata.createRow(events.indexOf(newEvent) + 1);
@@ -530,7 +601,8 @@ public class FileProcessing {
 
                     break;
                 case 3:
-
+                    Row facultydatarow = facultydata.getRow(selectedIndex+1);
+                    facultydata.removeRow(facultydatarow);
                     break;
                 case 4:
 
@@ -617,7 +689,36 @@ public class FileProcessing {
 
                     break;
                 case 3:
-
+                    Row facultydatarow = facultydata.getRow(faculties.indexOf(selectedFaculty) + 1);
+                    for (int cellcount = 0; cellcount <= 8; cellcount++) {
+                        Cell facultydataCell = facultydatarow.getCell(cellcount);
+                        if (cellcount == 0) {
+                            facultydataCell.setCellValue(selectedFaculty.facultyID);
+                        }
+                        if (cellcount == 1) {
+                            facultydataCell.setCellValue(selectedFaculty.name);
+                        }
+                        if (cellcount == 2) {
+                            facultydataCell.setCellValue(selectedFaculty.degree);
+                        }
+                        if (cellcount == 3) {
+                            facultydataCell.setCellValue(selectedFaculty.researchInterest);
+                        }
+                        if (cellcount == 4) {
+                            facultydataCell.setCellValue(selectedFaculty.email);
+                        }
+                        if (cellcount == 5) {
+                            facultydataCell.setCellValue(selectedFaculty.officeLocation);
+                        }
+                        if (cellcount == 6) {
+                            facultydataCell.setCellValue(selectedFaculty.coursesOffered);
+                        }
+                        if (cellcount == 7) {
+                            facultydataCell.setCellValue(selectedFaculty.password);
+                        }
+                        if (cellcount == 8) {
+                            facultydataCell.setCellValue(selectedFaculty.role);
+                        }}
                     break;
                 case 4:
 
