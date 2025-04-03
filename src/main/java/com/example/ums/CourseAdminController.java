@@ -169,7 +169,7 @@ public class CourseAdminController implements Initializable {
         // Add to list and refresh UI
         courses.add(newCourse);
         int indexnum = 1;
-        addData(newCourse,null,null,indexnum);
+        addData(newCourse,null,null, null, null, indexnum);
         refreshCourseList();
     }
 
@@ -228,7 +228,7 @@ public class CourseAdminController implements Initializable {
         selectedCourse.setLocation(newLocation);
         selectedCourse.setTeacherName(newTeacherName);
 
-        editData(selectedCourse,null,null,indexnum,selectedIndex);
+        editData(selectedCourse,null,null, null, null, indexnum, selectedIndex);
         // Refresh the list to reflect changes
         refreshCourseList();
     }

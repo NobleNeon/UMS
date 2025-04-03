@@ -256,7 +256,7 @@ public class StudentAdminController {
         // The constant value 2 represents the student data sheet index
         int studentSheetIndex = 2;
         int selectedIndex = students.indexOf(selectedStudent);
-        editData(null, null, selectedStudent, studentSheetIndex, selectedIndex);
+        editData(null, null, selectedStudent, null, null, studentSheetIndex, selectedIndex);
 
         // Refresh the displayed student information
         displayStudentInfo(newName);

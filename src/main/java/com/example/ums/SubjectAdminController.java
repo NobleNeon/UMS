@@ -166,7 +166,7 @@ public class SubjectAdminController implements Initializable {
 
                 // Add the new Subject to the List<Subject>
                 subjects.add(newSubject);
-                addData(null,null,newSubject,indexnum);;
+                addData(null, newSubject, null, null, null, indexnum);
                 // Add the new Subject to the ListView (using toString() to display)
                 SubjectList.getItems().add(newSubject.toString());
 
@@ -231,7 +231,7 @@ public class SubjectAdminController implements Initializable {
 
 
                         int selectedIndex = subjects.indexOf(selectedSubject);
-                        editData(null,selectedSubject,null,indexnum,selectedIndex);
+                        editData(null, selectedSubject, null, null, null, indexnum, selectedIndex);
                         // Refresh the ListView to reflect the changes
                         SubjectList.getItems().clear();  // Clear current items
                         for (Subject subject : subjects) {
