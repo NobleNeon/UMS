@@ -10,13 +10,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
 
-import static com.example.ums.FileProcessing.students;
+import static com.example.ums.FileProcessing.*;
 
 public class StudentAdminController {
 
@@ -27,6 +30,7 @@ public class StudentAdminController {
     public MenuItem studentButton;
     public MenuItem facultyButton;
     public MenuItem eventButton;
+    public ListView<String> StudentList;
 
     // TextField for student name search and other labels for student info display
     @FXML
@@ -191,6 +195,104 @@ public class StudentAdminController {
             studentTelephone.setText("");
         }
     }
+    @FXML
+    public void handleEditStudent(ActionEvent event) {
+        // Get the currently selected student name from the studentInfo label
+        String currentStudentName = studentInfo.getText();
+
+        // Find the selected student in the students list
+        Optional<Student> studentOptional = students.stream()
+                .filter(s -> s.getName().equalsIgnoreCase(currentStudentName))
+                .findFirst();
+
+        if (!studentOptional.isPresent()) {
+            showAlert("Error", "No student selected or student not found.");
+            return;
+        }
+
+        Student selectedStudent = studentOptional.get();
+
+        // Collect new information through input dialogs
+        String newId = showInputDialog("Edit Student ID", "Enter new student ID:", selectedStudent.getId());
+        if (newId == null) return; // User canceled
+
+        String newName = showInputDialog("Edit Student Name", "Enter new student name:", selectedStudent.getName());
+        if (newName == null) return;
+
+        String newAddress = showInputDialog("Edit Address", "Enter new address:", selectedStudent.getAddress());
+        if (newAddress == null) return;
+
+        String newTelephone = showInputDialog("Edit Telephone", "Enter new telephone:", selectedStudent.getTelephone());
+        if (newTelephone == null) return;
+
+        String newEmail = showInputDialog("Edit Email", "Enter new email:", selectedStudent.getEmail());
+        if (newEmail == null) return;
+
+        String newAcademicLevel = showInputDialog("Edit Academic Level", "Enter new academic level:", selectedStudent.getAcademicLevel());
+        if (newAcademicLevel == null) return;
+
+        String newCurrentSemester = showInputDialog("Edit Current Semester", "Enter new current semester:", selectedStudent.getCurrentSemester());
+        if (newCurrentSemester == null) return;
+
+        String newSubjectsRegistered = showInputDialog("Edit Subjects Registered", "Enter new subjects registered:", selectedStudent.getSubject());
+        if (newSubjectsRegistered == null) return;
+
+        String newProgress = showInputDialog("Edit Grade/Progress", "Enter new grade/progress:", selectedStudent.getGrade());
+        if (newProgress == null) return;
+
+        // Update the student object with new values
+        selectedStudent.id = newId;
+        selectedStudent.name = newName;
+        selectedStudent.address = newAddress;
+        selectedStudent.telephone = newTelephone;
+        selectedStudent.email = newEmail;
+        selectedStudent.academicLevel = newAcademicLevel;
+        selectedStudent.currentSemester = newCurrentSemester;
+        selectedStudent.subjectsRegistered = newSubjectsRegistered;
+        selectedStudent.progress = newProgress;
+
+        // Call the editData method to save changes to the Excel file
+        // The constant value 2 represents the student data sheet index
+        int studentSheetIndex = 2;
+        int selectedIndex = students.indexOf(selectedStudent);
+        editData(null, null, selectedStudent, studentSheetIndex, selectedIndex);
+
+        // Refresh the displayed student information
+        displayStudentInfo(newName);
+
+        // Refresh the student list if available
+        if (StudentList != null && StudentList.getItems() != null) {
+            // Clear and repopulate the student list
+            StudentList.getItems().clear();
+            for (Student student : students) {
+                StudentList.getItems().add(student.getName());
+            }
+        }
+        FileProcessing.serializeStudents();
+        // Show confirmation message
+        showAlert("Success", "Student information updated successfully.");
+    }
+    private String showInputDialog(String title, String message, String defaultValue) {
+        TextInputDialog dialog = new TextInputDialog(defaultValue);
+        dialog.setTitle(title);
+        dialog.setHeaderText(null);
+        dialog.setContentText(message);
+
+        Optional<String> result = dialog.showAndWait();
+        return result.orElse(null);
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
+
+
 
     // Empty main method (if needed)
     public void main() {

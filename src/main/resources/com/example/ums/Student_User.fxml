@@ -54,7 +54,11 @@
                                 </Tab>
                                 <Tab text="Tuition">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label layoutX="23.0" layoutY="53.0" text="Tuition" />
+                                    <Label layoutX="103.0" layoutY="53.0" fx:id="studentTuition"/>
+                                 </children></AnchorPane>
                                     </content>
                                 </Tab>
                                 <Tab text="Contact Info">
@@ -71,10 +75,10 @@
                             </tabs>
                         </TabPane>
                   <Button layoutY="14.0" mnemonicParsing="false" onAction="#displayStudentProfile" text="Button" />
-                  <Button layoutX="499.0" layoutY="-12.0" mnemonicParsing="false" text="Select Image" onAction="#handleSetProfilePicture" />
+                  <Button layoutX="499.0" layoutY="-12.0" mnemonicParsing="false" onAction="#handleSetProfilePicture" text="Select Image" />
                     </children>
                 </Pane>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="394.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" fx:id="imageView"/>
+            <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="394.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
             </children>
         </Pane>
     </children>

@@ -28,6 +28,7 @@ public class CourseAdminController implements Initializable {
     public ListView<String> CourseList;
     public Button DeleteButton;
 
+
     @FXML
     protected void handleButtonActionDashboard(ActionEvent event) {
         switchToAdminDashboardScene(event);
@@ -227,7 +228,7 @@ public class CourseAdminController implements Initializable {
         selectedCourse.setLocation(newLocation);
         selectedCourse.setTeacherName(newTeacherName);
 
-        editData(selectedCourse,null,indexnum,selectedIndex);
+        editData(selectedCourse,null,null,indexnum,selectedIndex);
         // Refresh the list to reflect changes
         refreshCourseList();
     }

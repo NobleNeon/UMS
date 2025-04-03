@@ -36,6 +36,7 @@ public class LoginController {
     protected void onHelloButtonClick(ActionEvent event) {
         GlobalVariables.userId = usernameField.getText();
         String password = passwordField.getText();
+        FileProcessing.loadStudent();
 
         System.out.println("User input - ID: " + GlobalVariables.userId + ", Password: " + password);
         students.forEach(System.out::println);
