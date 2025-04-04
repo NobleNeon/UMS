@@ -577,7 +577,7 @@ public class FileProcessing {
 
     };
 
-    public static void removeData(int indexnum,int selectedIndex) {
+    public static void removeData(int indexnum,int selectedIndex,int totalrows) {
         try (FileInputStream file = new FileInputStream(new File("src/main/resources/UMS_Data.xlsx").getAbsolutePath());// Reading the workbook
              Workbook workbook = new XSSFWorkbook(file)) {//creates a work book from the xlsx
             XSSFSheet subjectdata = (XSSFSheet) workbook.getSheetAt(0);
@@ -587,22 +587,127 @@ public class FileProcessing {
             XSSFSheet eventdata = (XSSFSheet) workbook.getSheetAt(4);
             switch (indexnum) {
                 case 0:
-                    Row subjectdatarow = subjectdata.getRow(selectedIndex+1);
+                    Row subjectdatarow = subjectdata.getRow(totalrows);
                     subjectdata.removeRow(subjectdatarow);
+                    for(Row rowiter : subjectdata){
+                        int cellcounter = 0;
 
+                        for(Cell celliter: rowiter){
+                            //System.out.println("row" + facultyrowiter.getRowNum());
+                            if(rowiter.getRowNum() < totalrows) {
+                                if(rowiter.getRowNum() > 0) {
+                                    //System.out.println(faculties.get(facultyrowiter.getRowNum()-1));
+                                    Subject selectedsubject = subjects.get(rowiter.getRowNum()-1);
+                                    //System.out.println(selectedsubject);
+
+                                    switch(cellcounter) {
+                                        case 0:celliter.setCellValue(selectedsubject.subjectCode);
+                                            break;
+                                        case 1:celliter.setCellValue(selectedsubject.subjectName);
+                                            break;
+
+                                    }
+                                    cellcounter++;     }     }
+
+                            //System.out.println("cell:" + cellcounter);
+
+
+                        }
+
+
+                    }
                     break;
                 case 1:
-                    Row coursedatarow = coursedata.getRow(selectedIndex+1);
+                    Row coursedatarow = coursedata.getRow(totalrows);
                     coursedata.removeRow(coursedatarow);
+                    for(Row rowiter : coursedata){
+                        int cellcounter = 0;
 
+                        for(Cell celliter: rowiter){
+                            //System.out.println("row" + facultyrowiter.getRowNum());
+                            if(rowiter.getRowNum() < totalrows) {
+                                if(rowiter.getRowNum() > 0) {
+                                    //System.out.println(faculties.get(facultyrowiter.getRowNum()-1));
+                                    Course selectedcourse = courses.get(rowiter.getRowNum()-1);
+                                    //System.out.println(selectedcourse);
+
+                                    switch(cellcounter) {
+                                        case 0:celliter.setCellValue(selectedcourse.courseCode);
+                                            break;
+                                        case 1:celliter.setCellValue(selectedcourse.courseName);
+                                            break;
+                                        case 2:celliter.setCellValue(selectedcourse.sectionNumber);
+                                            break;
+                                        case 3:celliter.setCellValue(selectedcourse.subjectCode);
+                                            break;
+                                        case 4:celliter.setCellValue(selectedcourse.capacity);
+                                            break;
+                                        case 5:celliter.setCellValue(selectedcourse.lectureTime);
+                                            break;
+                                        case 6:celliter.setCellValue(selectedcourse.finalExamDateTime);
+                                            break;
+                                        case 7:celliter.setCellValue(selectedcourse.location);
+                                            break;
+                                        case 8:celliter.setCellValue(selectedcourse.teacherName);
+                                            break;
+                                    }
+                                    cellcounter++;     }     }
+
+                            //System.out.println("cell:" + cellcounter);
+
+
+                        }
+
+
+                    }
 
                     break;
                 case 2:
 
                     break;
                 case 3:
-                    Row facultydatarow = facultydata.getRow(selectedIndex+1);
+                    Row facultydatarow = facultydata.getRow(totalrows);
                     facultydata.removeRow(facultydatarow);
+                    for(Row facultyrowiter : facultydata){
+                      int cellcounter = 0;
+
+                        for(Cell facultycelliter: facultyrowiter){
+                            //System.out.println("row" + facultyrowiter.getRowNum());
+                            if(facultyrowiter.getRowNum() < totalrows) {
+                                if(facultyrowiter.getRowNum() > 0) {
+                                    //System.out.println(faculties.get(facultyrowiter.getRowNum()-1));
+                                    Faculty selectedfaculty = faculties.get(facultyrowiter.getRowNum()-1);
+                                    System.out.println(selectedfaculty);
+
+switch(cellcounter) {
+    case 0:facultycelliter.setCellValue(selectedfaculty.facultyID);
+        break;
+    case 1:facultycelliter.setCellValue(selectedfaculty.name);
+        break;
+    case 2:facultycelliter.setCellValue(selectedfaculty.degree);
+        break;
+    case 3:facultycelliter.setCellValue(selectedfaculty.researchInterest);
+        break;
+    case 4:facultycelliter.setCellValue(selectedfaculty.email);
+        break;
+    case 5:facultycelliter.setCellValue(selectedfaculty.officeLocation);
+        break;
+    case 6:facultycelliter.setCellValue(selectedfaculty.coursesOffered);
+        break;
+    case 7:facultycelliter.setCellValue(selectedfaculty.password);
+        break;
+    case 8:facultycelliter.setCellValue(selectedfaculty.role);
+        break;
+}
+                                    cellcounter++;     }     }
+
+                       //System.out.println("cell:" + cellcounter);
+
+
+                  }
+
+
+                  }
                     break;
                 case 4:
 

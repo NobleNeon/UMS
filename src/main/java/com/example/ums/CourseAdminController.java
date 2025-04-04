@@ -265,12 +265,20 @@ public class CourseAdminController implements Initializable {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             // Remove from list and refresh UI
             int indexnum = 1;
-            removeData(indexnum,selectedIndex);
+            int totalrows = 0;
 
+            for(Course tempcourse : courses) {
 
-
+                totalrows++;
+            }
+System.out.println("Total rows: " + totalrows);
             courses.remove(selectedIndex);
+            removeData(indexnum,selectedIndex,totalrows);
+
             refreshCourseList();
+
+
+
         }
     }
 

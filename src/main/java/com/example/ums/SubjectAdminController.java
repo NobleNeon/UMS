@@ -291,7 +291,12 @@ public class SubjectAdminController implements Initializable {
             if (s.toString().equals(subject)) {
                 int indexnum = 0;
                 int selectedIndex = subjects.indexOf(s);
-                removeData(indexnum,selectedIndex);
+                int totalrows = 0;
+                for(Subject tempsubject : subjects) {
+
+                    totalrows++;
+                }
+                removeData(indexnum,selectedIndex,totalrows);
                 subjects.remove(s);
                 break;
             }

@@ -47,6 +47,7 @@ public class FacultyAdminController {
     public Label TeachNameTXTloc, TeachIdTXTloc, DegreeTXTloc, ResearchTXTloc, EmailTXTloc, OfficeTXTloc,CoursesOfferedTXTloc;
     @FXML
     private ListView<String> TeacherListSuggestions;
+
     @FXML
     protected void handleButtonActionDashboard(ActionEvent event) {
         switchToAdminDashboardScene(event);
@@ -229,7 +230,7 @@ public class FacultyAdminController {
             searchText = TeacherName.getText().trim().toLowerCase();
         } else {
             searchText = selectedName;
-            System.out.println(searchText);
+            //System.out.println(searchText);
         }
         TeacherListSuggestions.setVisible(true);
         // If search text is empty, hide the suggestions list
@@ -237,8 +238,10 @@ public class FacultyAdminController {
             List<String> unfilteredTeacherNames = faculties.stream()
                     .map(Faculty::getName)
                     .collect(Collectors.toList());
+            TeacherListSuggestions.getItems().setAll(unfilteredTeacherNames);
+            TeacherListSuggestions.setVisible(true);
             //TeacherListSuggestions.setVisible(false);
-            return null; // Don't do any filtering if the search field is empty
+            //return null; // Don't do any filtering if the search field is empty
         }
 
         // Filter Teachers based on the search input
@@ -319,6 +322,7 @@ public class FacultyAdminController {
             faculties.add(newFaculty);
             addData(null,null,null,newFaculty,null,indexnum);
             FacultySearch(null);
+            displayTeacherInfo(newFaculty.getName());
         };
 
     }
@@ -640,17 +644,20 @@ public class FacultyAdminController {
         int selectedIndex = 0;
         for (Faculty tempFaculty : faculties) {//Iterating the list to find the equivalent teacher name
 
-
+            System.out.println(indexCount);
             if (Objects.equals(tempFaculty, faculty)) {
                 selectedIndex = indexCount;
-
+//System.out.println(selectedIndex);
 
             }
             indexCount++;
+            //System.out.println(indexCount);
         }
         Faculty selectedFaculty = faculties.get(selectedIndex);
         faculties.remove(selectedFaculty);
-        removeData(indexnum,selectedIndex);
+        int totalrows =indexCount;
+        //System.out.println("Total" + totalrows);
+        removeData(indexnum,selectedIndex,totalrows);
         newselected = FacultySearch(selectedName);
         displayTeacherInfo(selectedName);
     }
@@ -674,4 +681,8 @@ public class FacultyAdminController {
         Optional<String> result = dialog.showAndWait();
         return result.orElse(defaultValue); // Return existing value if nothing is entered
     }
-}
+
+
+
+    };
+

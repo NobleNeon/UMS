@@ -61,7 +61,7 @@
                   <Label fx:id="OfficeTXTloc" layoutX="155.0" layoutY="343.0" prefHeight="17.0" prefWidth="174.0" />
                   <Label fx:id="CoursesOfferedTXTloc" layoutX="342.0" layoutY="245.0" prefHeight="134.0" prefWidth="339.0" />
                   <RadioButton fx:id="IsAdmin" layoutX="57.0" layoutY="396.0" mnemonicParsing="false" text="Is Admin?" />
-                  <Button fx:id="CoursesOfferedEdit"  layoutX="445.0" layoutY="228.0" mnemonicParsing="false" onAction="#editcoursesebutton" text="Edit" />
+                  <Button fx:id="CoursesOfferedEdit" layoutX="445.0" layoutY="228.0" mnemonicParsing="false" onAction="#editcoursesebutton" text="Edit" />
                </children></Pane>
             <Button id="AddButton" fx:id="AddButton" layoutX="557.0" layoutY="45.0" mnemonicParsing="false" onAction="#addbutton" text="Add" />
             <Button id="DeleteButton" fx:id="DeleteButton" layoutX="620.0" layoutY="45.0" mnemonicParsing="false" onAction="#removebutton" text="Delete" />
